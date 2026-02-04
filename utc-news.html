@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Insights | UTC Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0D3B2E;
+            --mint: #10B981;
+            --cream: #FFFDF7;
+            --sand: #F5F3EE;
+            --white: #FFFFFF;
+            --ink: #1a1a1a;
+            --stone: #9CA3AF;
+            --midnight: #111111;
+            --charcoal: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            background: rgba(13, 59, 46, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--stone);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .navbar .logo-img {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 40px;
+        }
+        .navbar.scrolled .logo-img {
+            height: 32px;
+            filter: brightness(0) saturate(100%);
+        }
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar.scrolled .nav-link {
+            color: var(--charcoal);
+        }
+        .navbar.scrolled .nav-link:hover,
+        .navbar.scrolled .nav-link.active {
+            color: var(--ink);
+            background: var(--sand);
+        }
+        .navbar.scrolled .btn-ghost {
+            color: var(--charcoal);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            padding: 0.5rem 0.875rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            color: var(--white);
+            background: rgba(255,255,255,0.1);
+        }
+        .nav-link.active {
+            color: var(--white);
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .btn-ghost {
+            background: transparent;
+            color: rgba(255,255,255,0.85);
+        }
+        .btn-ghost:hover {
+            color: var(--white);
+        }
+        .btn-accent {
+            background: var(--mint);
+            color: var(--white);
+        }
+        .btn-accent:hover {
+            background: var(--mint-dark);
+        }
+        .btn-lg {
+            padding: 0.875rem 1.75rem;
+            font-size: 0.9375rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--white);
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled .mobile-menu-btn span {
+            background: var(--ink);
+        }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            z-index: 1001;
+            padding: 100px 2rem 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-links a {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--ink);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--stone);
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+        .mobile-menu-links a:hover { color: var(--mint); }
+        .mobile-menu-cta { margin-top: 2rem; }
+        .mobile-menu-cta .btn { width: 100%; justify-content: center; }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 55vh;
+            background: var(--midnight);
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 22rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-left {
+            padding: 7rem 4rem 2.5rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        .hero-eyebrow span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mint);
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: var(--mint);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--mint);
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 480px;
+            line-height: 1.65;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+        }
+
+        /* Featured Article - Right Side */
+        .hero-featured {
+            background: var(--forest);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-image {
+            height: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-featured:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--forest), transparent);
+        }
+
+        .featured-content {
+            padding: 2rem 3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1rem;
+        }
+
+        .featured-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--mint);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .featured-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.65rem;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.25;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .hero-featured:hover .featured-content h2 {
+            color: var(--mint);
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .featured-arrow {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 3rem;
+            width: 56px;
+            height: 56px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .featured-arrow svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .hero-featured:hover .featured-arrow {
+            background: var(--mint);
+            border-color: var(--mint);
+            transform: rotate(-45deg);
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        /* ============ FILTERS ============ */
+        .filters-section {
+            background: var(--sand);
+            padding: 2rem 6rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 64px;
+            z-index: 50;
+        }
+
+        .filters-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.25rem;
+            background: transparent;
+            border: 2px solid var(--stone);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--forest);
+            color: var(--forest);
+        }
+
+        .filter-btn.active {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+        }
+
+        .article-count {
+            font-size: 0.85rem;
+            color: var(--stone);
+        }
+
+        .article-count span {
+            color: var(--mint);
+            font-weight: 700;
+        }
+
+        /* ============ ARTICLES GRID ============ */
+        .articles-section {
+            padding: 5rem 6rem;
+            background: var(--white);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        /* Article Card */
+        .article-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--sand);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card.animate {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .article-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            border-color: var(--mint);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(13, 59, 46, 0.1);
+        }
+
+        .article-card.hidden {
+            display: none;
+        }
+
+        .article-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            background: var(--sand);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.08);
+        }
+
+        .article-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.4rem 0.9rem;
+            background: var(--white);
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--forest);
+        }
+
+        .article-body {
+            padding: 1.75rem;
+        }
+
+        .article-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--stone);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-date::before {
+            content: '';
+            width: 12px;
+            height: 2px;
+            background: var(--mint);
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--ink);
+            line-height: 1.35;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .article-card:hover .article-title {
+            color: var(--forest);
+        }
+
+        .article-excerpt {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            line-height: 1.65;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-footer {
+            padding: 1.25rem 1.75rem;
+            border-top: 1px solid var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .read-more {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--forest);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .read-more svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover .read-more {
+            color: var(--mint);
+        }
+
+        .article-card:hover .read-more svg {
+            transform: translateX(4px);
+        }
+
+        /* Large featured cards - first row */
+        .articles-grid .article-card:nth-child(1) {
+            grid-column: span 2;
+        }
+
+        .articles-grid .article-card:nth-child(1) .article-image {
+            height: 320px;
+        }
+
+        .articles-grid .article-card:nth-child(1) .article-title {
+            font-size: 1.75rem;
+        }
+
+        /* ============ LOAD MORE ============ */
+        .load-more-section {
+            padding: 0 6rem 5rem;
+            text-align: center;
+        }
+
+        .load-more-btn {
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 2px solid var(--forest);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--forest);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .load-more-btn:hover {
+            background: var(--forest);
+            color: var(--white);
+        }
+
+        /* ============ CTA SECTION ============ */
+        .cta-section {
+            background: var(--forest);
+            padding: 8rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: 'NEWS';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 20rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.02);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content h2 em {
+            font-style: italic;
+            color: var(--mint);
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.1rem 2.5rem;
+            background: var(--mint);
+            color: var(--white);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-btn:hover {
+            background: var(--white);
+            color: var(--forest);
+            transform: translateY(-2px);
+        }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--midnight);
+            padding: 5rem 6rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-column h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        /* ============ ARTICLE MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            right: -60%;
+            width: 60%;
+            max-width: 900px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 2001;
+            overflow-y: auto;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal.active {
+            right: 0;
+        }
+
+        .modal-close {
+            position: fixed;
+            top: 2rem;
+            right: calc(60% + 2rem);
+            width: 56px;
+            height: 56px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+            z-index: 2002;
+        }
+
+        .modal-overlay.active .modal-close {
+            opacity: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--white);
+            border-color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover svg {
+            color: var(--ink);
+        }
+
+
+        .modal-close-mobile {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .modal-close-mobile svg {
+            width: 18px;
+            height: 18px;
+            color: var(--white);
+        }
+        .modal-header {
+            position: relative;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 4rem 3rem 2.5rem;
+            background: linear-gradient(to top, var(--midnight), transparent);
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--mint);
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.25;
+        }
+
+        .modal-meta {
+            padding: 1.5rem 3rem;
+            border-bottom: 2px solid var(--sand);
+            display: flex;
+            gap: 2rem;
+        }
+
+        .modal-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .modal-meta-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--stone);
+        }
+
+        .modal-meta-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        .modal-body p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body p:first-of-type::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 500;
+            float: left;
+            line-height: 1;
+            margin-right: 0.75rem;
+            color: var(--forest);
+        }
+
+        .modal-quote {
+            padding: 2rem 0;
+            margin: 2rem 0;
+            border-top: 2px solid var(--sand);
+            border-bottom: 2px solid var(--sand);
+        }
+
+        .modal-quote blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--forest);
+            line-height: 1.5;
+        }
+
+        .modal-quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--stone);
+        }
+
+        /* Modal Scrollbar */
+        .modal::-webkit-scrollbar { width: 6px; }
+        .modal::-webkit-scrollbar-track { background: var(--sand); }
+        .modal::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
+
+        /* ============ SCROLL ANIMATIONS ============ */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-fade-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .filter-btn.animate {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .filter-btn.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-content h2,
+        .cta-content p,
+        .cta-btn {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cta-content h2.in-view,
+        .cta-content p.in-view,
+        .cta-btn.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--mint), var(--forest));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 4rem; }
+            .hero-bg-text { font-size: 20rem; }
+            .articles-grid { grid-template-columns: repeat(2, 1fr); }
+            .articles-grid .article-card:nth-child(1) { grid-column: span 2; }
+        }
+
+        @media (max-width: 968px) {
+            .navbar { padding: 1rem 2rem; }
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .mobile-menu { display: block; }
+            
+            .hero { min-height: auto; }
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-left { padding: 8rem 2rem 3rem; }
+            .hero h1 { font-size: 3rem; }
+            .hero-bg-text { font-size: 12rem; }
+            
+            .hero-featured { min-height: 500px; }
+            
+            .filters-section { padding: 1.5rem 2rem; position: relative; top: 0; }
+            .filters-container { flex-direction: column; align-items: flex-start; }
+            
+            .articles-section { padding: 3rem 2rem; }
+            .articles-grid { 
+                grid-template-columns: 1fr; 
+                gap: 2rem;
+            }
+            .articles-grid .article-card:nth-child(1) { grid-column: span 1; }
+            .articles-grid .article-card:nth-child(1) .article-image { height: 220px; }
+            .articles-grid .article-card:nth-child(1) .article-title { font-size: 1.35rem; }
+            
+            .cta-section { padding: 4rem 2rem; }
+            .cta-content h2 { font-size: 2rem; }
+            
+            .footer { padding: 3rem 2rem 2rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            
+            .modal { width: 100%; right: -100%; }
+            .modal-close { display: none; }
+            .modal-close-mobile { display: flex; }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .filter-buttons { gap: 0.5rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logos/utc-logo.png" alt="UTC Associates" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="utc-services.html" class="nav-link">Services</a>
+                <a href="utc-practices.html" class="nav-link">Practices</a>
+                <a href="utc-about.html" class="nav-link">About</a>
+                <a href="utc-projects.html" class="nav-link">Projects</a>
+                <a href="utc-news.html" class="nav-link active">News</a>
+            </div>
+            <div class="nav-actions">
+                <a href="tel:212-344-4111" class="btn btn-ghost">212-344-4111</a>
+                <a href="index.html#contact" class="btn btn-accent">Let's Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="utc-services.html">Services</a>
+            <a href="utc-practices.html">Practices</a>
+            <a href="utc-about.html">About</a>
+            <a href="utc-projects.html">Projects</a>
+            <a href="utc-news.html">News</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-text">NEWS</div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-eyebrow">
+                    <span>News & Insights</span>
+                </div>
+                <h1>Leadership, <em>Innovation</em> & Impact</h1>
+                <p class="hero-description">Discover how UTC Associates and CEO Aziz Ahmad are shaping the future of technology through global thought leadership, strategic partnerships, and award-winning solutions.</p>
+            </div>
+            <a href="#" class="hero-featured" data-article="pope-francis">
+                <div class="featured-image">
+                    <img src="aziz_ahmad_pope_francis.webp" alt="CEO Aziz Ahmad meets Pope Francis">
+                </div>
+                <div class="featured-content">
+                    <div class="featured-label">Featured Story</div>
+                    <h2>UTC Associates CEO a Key Panelist at Common Good in the Digital Age Summit Hosted by Pope Francis</h2>
+                    <div class="featured-meta">
+                        <span>October 3, 2019</span>
+                        <span>•</span>
+                        <span>Leadership</span>
+                    </div>
+                </div>
+                <div class="featured-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <span class="filter-label">Filter by</span>
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" data-filter="all">All News</button>
+                <button class="filter-btn" data-filter="awards">Awards</button>
+                <button class="filter-btn" data-filter="leadership">Leadership</button>
+                <button class="filter-btn" data-filter="partnerships">Partnerships</button>
+                <button class="filter-btn" data-filter="case-study">Case Studies</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+            <div class="article-count">Showing <span id="articleCount">14</span> articles</div>
+        </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="articles-section">
+        <div class="articles-grid" id="articlesGrid">
+            
+            <!-- Article 15: CCNY Partnership (Most Recent) -->
+            <article class="article-card" data-category="partnerships" data-article="ccny-partnership">
+                <div class="article-image">
+                    <img src="ccny-partnership.jpg" alt="CodersTrust and CCNY partnership signing">
+                    <span class="article-category">Partnership</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">April 19, 2024</div>
+                    <h3 class="article-title">CodersTrust Secures Partnership with the City College of New York (CCNY)</h3>
+                    <p class="article-excerpt">Agreement expands CCNY's global reach providing upskilling and job-ready certifications to marginalized communities worldwide.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 14: Thimble.io Board -->
+            <article class="article-card" data-category="leadership" data-article="thimble-board">
+                <div class="article-image">
+                    <img src="Thimble_io-Orange-Logo-1.png" alt="Thimble.io logo" style="object-fit: contain; background: #fff; padding: 2rem;">
+                    <span class="article-category">Leadership</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">December 13, 2023</div>
+                    <h3 class="article-title">Aziz Ahmad Joins Thimble.io Board of Directors</h3>
+                    <p class="article-excerpt">Chairman of CodersTrust joins STEM education disruptor to shape inclusive future in technology education worldwide.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 13: Digital NY Summit -->
+            <article class="article-card" data-category="events" data-article="digital-ny-summit">
+                <div class="article-image">
+                    <img src="digital-ny-summit.jpg" alt="Digital NY Summit 2023">
+                    <span class="article-category">Speaking</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">March 9, 2023</div>
+                    <h3 class="article-title">Aziz Ahmad to Moderate Session at Digital NY Summit 2023</h3>
+                    <p class="article-excerpt">Award-winning IT visionary to lead discussion on Government Collaboration and Modernization at prestigious New York technology summit.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 12: NY NJ Supplier of Year -->
+            <article class="article-card" data-category="awards" data-article="nynj-supplier">
+                <div class="article-image">
+                    <img src="nynj-supplier-award.webp" alt="NY NJ Supplier of the Year Award">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">November 3, 2022</div>
+                    <h3 class="article-title">UTC Associates Awarded NY NJ Minority Development Council's Supplier of the Year</h3>
+                    <p class="article-excerpt">UTC recognized for delivering high level of service while creating jobs and opportunities in the local community.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 11: WGES Speech Coverage -->
+            <article class="article-card" data-category="awards" data-article="wges-speech">
+                <div class="article-image">
+                    <img src="aziz-wges-speech.jpg" alt="Aziz Ahmad speaking at WGES">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">July 19, 2022</div>
+                    <h3 class="article-title">CodersTrust Chairman Awarded for Skills Training for the Disadvantaged</h3>
+                    <p class="article-excerpt">Bangladeshi-American business leader recognized for efforts to provide skills training to disadvantaged groups globally.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 10: WGES NOVA Award -->
+            <article class="article-card" data-category="awards" data-article="wges-nova">
+                <div class="article-image">
+                    <img src="WGES_logo.webp" alt="World Green Energy Symposium logo" style="object-fit: contain; background: #fff; padding: 2rem;">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">March 29, 2022</div>
+                    <h3 class="article-title">WGES Council Announces Aziz Ahmad as 2022 NOVA Award Recipient</h3>
+                    <p class="article-excerpt">Recognition for exemplary leadership, innovation, and commitment to solving societal inequities through sustainable solutions.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 9: NYSAC Conference -->
+            <article class="article-card" data-category="events" data-article="nysac-conference">
+                <div class="article-image">
+                    <img src="nysac-conference.webp" alt="UTC Associates at NYSAC Conference">
+                    <span class="article-category">Event</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">March 19, 2022</div>
+                    <h3 class="article-title">UTC Associates Supports New York Counties at Annual NYSAC Legislative Conference</h3>
+                    <p class="article-excerpt">County Executives and UTC CEO participate in high-level Albany conference to enhance New York State's technology services.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 8: AWS Orange County -->
+            <article class="article-card" data-category="case-study" data-article="aws-orange-county">
+                <div class="article-image">
+                    <img src="Amazon_AWS_with_OCNY_and_UTC_Team.webp" alt="UTC and AWS team with Orange County">
+                    <span class="article-category">Case Study</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">November 8, 2021</div>
+                    <h3 class="article-title">UTC Broadens Technology Support for Orange County with Amazon Web Services</h3>
+                    <p class="article-excerpt">Cutting-edge contactless communications channels deployed for COVID-19-related logistics support using AWS serverless technologies.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 7: European Parliament -->
+            <article class="article-card" data-category="leadership" data-article="eu-parliament">
+                <div class="article-image">
+                    <img src="Aziz_Ahmad_European_Union.webp" alt="Aziz Ahmad at European Parliament">
+                    <span class="article-category">Leadership</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">November 27, 2019</div>
+                    <h3 class="article-title">UTC Associates CEO Tapped to Help Shape European Parliament's AI Strategy</h3>
+                    <p class="article-excerpt">Aziz Ahmad invited as global thought leader to consult on artificial intelligence policy as part of the Renew Europe Initiative.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 5: Con Edison Award -->
+            <article class="article-card" data-category="awards" data-article="con-edison-award">
+                <div class="article-image">
+                    <img src="gI_96764_ConEd_UTC_Associates_PressPicture.webp" alt="Con Edison Award ceremony">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">April 22, 2019</div>
+                    <h3 class="article-title">UTC Associates Garners Con Edison's Minority Business Entrepreneur of the Year Award</h3>
+                    <p class="article-excerpt">Firm's outstanding innovation and cloud transformation efforts highlighted at ceremony held at Con Edison headquarters.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 4: SBA NASDAQ -->
+            <article class="article-card" data-category="awards" data-article="sba-nasdaq">
+                <div class="article-image">
+                    <img src="SBA-Image.webp" alt="SBA NASDAQ Bell Ceremony">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">February 20, 2016</div>
+                    <h3 class="article-title">SBA Emerging Leader Aziz Ahmad Joins Maria Contreras-Sweet in NASDAQ Closing Bell</h3>
+                    <p class="article-excerpt">CEO joins SBA Administrator and member of President Obama's cabinet at prestigious NASDAQ MarketSite bell ceremony.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 3: Grove School -->
+            <article class="article-card" data-category="awards" data-article="grove-school">
+                <div class="article-image">
+                    <img src="grove_school.webp" alt="Grove School of Engineering">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">October 25, 2010</div>
+                    <h3 class="article-title">Aziz Ahmad is Andrew Grove School of Engineering Wall of Honor Inductee</h3>
+                    <p class="article-excerpt">Recognition bestowed for making major financial and leadership contributions to the Grove School of Engineering at CCNY.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 2: Culver Studios -->
+            <article class="article-card" data-category="case-study" data-article="culver-studios">
+                <div class="article-image">
+                    <img src="culver-studios.webp" alt="The Culver Studios">
+                    <span class="article-category">Case Study</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">May 15, 2009</div>
+                    <h3 class="article-title">The Culver Studios Selects UTC Associates for Managed Services</h3>
+                    <p class="article-excerpt">Multi-year deal signed for convergent VoIP, data, and wireless network services at the legendary Hollywood studio.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+            <!-- Article 1: AAARI Award -->
+            <article class="article-card" data-category="awards" data-article="aaari-award">
+                <div class="article-image">
+                    <img src="aaari-logo.webp" alt="AAARI CUNY logo" style="object-fit: contain; background: #fff; padding: 2rem;">
+                    <span class="article-category">Award</span>
+                </div>
+                <div class="article-body">
+                    <div class="article-date">October 30, 2008</div>
+                    <h3 class="article-title">UTC Associates' CEO is Recipient of First Asian American Distinguished Alumni Award</h3>
+                    <p class="article-excerpt">Aziz Ahmad honored by AAARI of City University of New York for exemplifying contributions of Asian American CUNY alumni.</p>
+                </div>
+                <div class="article-footer">
+                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Stay informed about <em>our latest news</em></h2>
+            <p>Get in touch to learn more about our innovative technology solutions and global initiatives.</p>
+            <a href="index.html#contact" class="cta-btn">
+                Contact Us
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>UTC Associates</h3>
+                <p>A leading technology consulting, systems integration and business solutions company delivering excellence since 2001.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <a href="index.html#services">Cloud Migration</a>
+                <a href="index.html#services">Cyber Security</a>
+                <a href="index.html#services">Digital Transformation</a>
+                <a href="index.html#services">AI & Analytics</a>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="index.html#about">About Us</a>
+                <a href="utc-projects.html">Projects</a>
+                <a href="utc-news.html">News</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="mailto:info@utcassociates.com">info@utcassociates.com</a>
+                <a href="tel:+12123444111">212-344-4111</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 UTC Associates, Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Article Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <button class="modal-close" id="modalClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <div class="modal" id="modal">
+        <button class="modal-close-mobile" id="modalCloseMobile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="modal-header">
+            <div class="modal-image">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-header-content">
+                <span class="modal-category" id="modalCategory">Award</span>
+                <h1 class="modal-title" id="modalTitle">Article Title</h1>
+            </div>
+        </div>
+        <div class="modal-meta">
+            <div class="modal-meta-item">
+                <span class="modal-meta-label">Published</span>
+                <span class="modal-meta-value" id="modalDate">Date</span>
+            </div>
+            <div class="modal-meta-item">
+                <span class="modal-meta-label">Category</span>
+                <span class="modal-meta-value" id="modalCategoryText">Category</span>
+            </div>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <p>Article content goes here...</p>
+        </div>
+    </div>
+
+    <script>
+        // Article Data
+        const articles = {
+            'pope-francis': {
+                title: 'UTC Associates CEO a Key Panelist at Common Good in the Digital Age Summit Hosted by Pope Francis',
+                category: 'Leadership',
+                date: 'October 3, 2019',
+                image: 'aziz_ahmad_pope_francis.webp',
+                content: `<p>UTC Associates, Inc. (UTC), a leading business technology consulting company with its primary location in midtown Manhattan, announced their CEO Aziz Ahmad spoke on "Future of Works" in a special Vatican technology summit called the Common Good in the Digital Age sponsored by His Holiness Pope Francis.</p>
+                
+                <p>The event hosted in Vatican City and sponsored by the Dicastery for promoting Integral Human Development and the Pontifical Council for Culture was held from September 26th-28th, 2019. The summit was sponsored by Pope Francis to address recent developments in the area of digital technologies, especially concerning Artificial Intelligence (AI), Augmented Reality (AR), Virtual Reality (VR), Drones and Robotics which have generated global debates on social, ethical and political implications of these changes.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"The principal objective you have set yourselves is considerably ambitious: to arrive at criteria and fundamental ethical parameters capable of providing guidance in ethical problems that occur with widespread technology."</blockquote>
+                    <cite>— Pope Francis, Opening Remarks</cite>
+                </div>
+                
+                <p>"I am humbled to have been one of the few technology leaders in the world to be invited to participate in such a prestigious and important event," said Mr. Aziz Ahmad CEO of UTC Associates also a Co-founder of CodersTrust, a global skill development Institute.</p>
+                
+                <p>Mr. Ahmad discussed the Future of Work and participated in a panel discussion moderated by Ms. Anna Biondi (ILO, Switzerland) and was joined on the panel by Mr. Oliver Roethig (UNI Europa, Belgium) and Mr. Malcom Wright (Diginex, Hong Kong).</p>`
+            },
+            'ccny-partnership': {
+                title: 'CodersTrust Secures Partnership with the City College of New York (CCNY)',
+                category: 'Partnership',
+                date: 'April 19, 2024',
+                image: 'ccny-partnership.jpg',
+                content: `<p>CodersTrust, a global EdTech Company with its headquarters in New York City, announced it signed an agreement at a ceremony on April 12th with City College of New York (CCNY) to provide programs for upskilling students and enable them to achieve job-ready certifications.</p>
+                
+                <p>CCNY is the flagship institution of City University of New York, the largest urban university system in the United States and this agreement will help them realize the vision of global outreach through overseas enrollments, academic collaboration, and student exchanges.</p>
+                
+                <p>The signing took place at the CCNY campus in New York with Hon'ble Secretary General of the South Asia Associations of Regional Cooperation (SAARC), Ambassador Md. Golam Sarwar in attendance to support this important partnership.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"This agreement with CodersTrust is very important to us, especially to City College Continuing and Professional Studies. This will allow us to offer training for key job markets that are in great demand today, and especially to marginalized communities on a global scale."</blockquote>
+                    <cite>— Dr. Juan Mercado, Dean of the Division of Interdisciplinary Studies</cite>
+                </div>
+                
+                <p>CodersTrust Chairman Aziz Ahmad added "This partnership has a deep personal significance to me as I am a CCNY graduate and am indebted to the institution. I am happy this collaboration offers me an opportunity to give back and share in the responsibility of addressing the needs of the underserved here in the US and across the globe."</p>
+                
+                <p>The partnership will initially start with 25+ learning paths covering leading edge technologies such as AI, Big Data, Cybersecurity, Cloud, DevOps and Blockchain as well as technical and business skills for the modern digital economy.</p>`
+            },
+            'thimble-board': {
+                title: 'Aziz Ahmad, Chairman of CodersTrust, Joins Thimble.io Board of Directors',
+                category: 'Leadership',
+                date: 'December 13, 2023',
+                image: 'Thimble_io-Orange-Logo-1.png',
+                content: `<p>Thimble.io, a disruptor in STEM education, is pleased to announce today that Aziz Ahmad, the esteemed Founder of SuperKids and CodersTrust, will be joining its Board of Directors. This partnership signifies a big stride in Thimble's ongoing commitment to shaping an inclusive and progressive future in STEM education all over the world.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"CodersTrust, SuperKids, and Thimble.io share a common vision – empowering individuals with the skills they need to succeed in today's fast-paced digital world. As we combine our forces, we can provide an unprecedented learning platform that truly prepares learners for a future dominated by technology and innovation."</blockquote>
+                    <cite>— Aziz Ahmad</cite>
+                </div>
+                
+                <p>By joining Thimble's Board, Ahmad aims to contribute his extensive experience and insight into effectively teaching coding and IT skills. His innovative approaches at CodersTrust and SuperKids have been instrumental in opening up the world of tech to countless students, including those in underserved communities.</p>
+                
+                <p>"Ahmad's passion for accessible, inclusive education mirrors Thimble.io's mission. His integration into the Board will undeniably enhance the company's capabilities to simplify complex concepts, stay ahead with the latest tech trends, and foster professional development for teachers," says Dharti Desai, Chairman of the Board of Thimble.io.</p>
+                
+                <p>Students will be enrolled under CodersTrust's Superkids program, immersing themselves in the realm of automation and innovation through robotics science experiments in their classroom settings.</p>`
+            },
+            'digital-ny-summit': {
+                title: 'Aziz Ahmad to Moderate Session at Digital NY Summit 2023',
+                category: 'Speaking',
+                date: 'March 9, 2023',
+                image: 'digital-ny-summit.jpg',
+                content: `<p>Aziz Ahmad, Chairman, CodersTrust and CEO, UTC Associates is to join as the distinguished panelist of Digital New York Summit 2023 scheduled for March 15, Wednesday. The award winning IT visionary will be moderating a session on 'Government Collaboration and Modernization' while New York City CEO Matthew C Fraser will present the key-note speech.</p>
+                
+                <p>City & State's 2023 Digital Summit, to be held at The Museum of Jewish Heritage, 36 Battery Place, New York, will convene New York's technology and information leaders from government and industry for a day-long, dynamic program of candid discussions.</p>
+                
+                <p>In the wake of Covid-19 pandemic New York city feels that it's time to take modernization more seriously and in a faster manner. The session on 'Government Collaboration and Modernization' will discuss where to focus, what to prioritize, and how to proceed.</p>
+                
+                <p>Dawn Pinnock, Commissioner of New York City Department of Administrative Services, Adam Akmal-Gonzalez, Manager Business Diversity - East, CDW Michael O'Boyle, Managing Director, Capalino, Joe Plotkin, Director, Business Development, Stealth Communications, Cindy Cohen, Principal, KPMG will join as the panel discussants.</p>`
+            },
+            'nynj-supplier': {
+                title: 'UTC Associates Awarded NY NJ Minority Development Council\'s Supplier of the Year for 2022',
+                category: 'Award',
+                date: 'November 3, 2022',
+                image: 'nynj-supplier-award.webp',
+                content: `<p>UTC Associates, Inc. (UTC), a New York State certified Minority Business Enterprise with its primary location on Wall Street in New York, announced they have been awarded the prestigious 2022 Local Supplier of the Year Award presented by the New York and New Jersey Minority Supplier Development Council (NY&NJ MSDC).</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"It is important that we acknowledge businesses in our community that not only deliver a high level of service to their customers, but do so locally, creating jobs and opportunity for others in our area. UTC Associates and its CEO Aziz Ahmad have strived to be a shining example of a local business doing the right things for the community."</blockquote>
+                    <cite>— Terrance Clark, President and CEO, NY & NJ Minority Supplier Development Council</cite>
+                </div>
+                
+                <p>"I am thrilled to see UTC receive this prestigious award. UTC has provided vital technology related solutions for Con Edison on important projects that are helping our utility enhance our customer experience and improve operational excellence for over 15 years," said Michael Jones-Bey Director, Supplier Diversity at Con Edison.</p>
+                
+                <p>"I am humbled and honored that UTC has been selected 2022 supplier of the year as it is a testament to the hard work by all of the UTC team and my personal commitment to support the minority owned business community." said Aziz Ahmed CEO of UTC.</p>`
+            },
+            'wges-speech': {
+                title: 'CodersTrust Chairman Mr. Aziz Ahmad Awarded for Skills Training for the Disadvantaged',
+                category: 'Award',
+                date: 'July 19, 2022',
+                image: 'aziz-wges-speech.jpg',
+                content: `<p>Bangladeshi-American business leader and Information Technology company CEO, Aziz Ahmad, was awarded the prestigious 2022 World Green Energy Symposium (WGES) NOVA Award for his contributions to business, specifically, for his efforts to provide skills training to the disadvantaged groups.</p>
+                
+                <p>He received the award at the annual WGES Summit on 13 April, 2022. Aziz Ahmad, CEO and founder of IT consultancy firm UTC Associates and skills training institute, CodersTrust, was one of the three recipients of the 2022 WGES NOVA Award.</p>
+                
+                <p>The WGES brought together top experts in sustainability including investors, innovators, government agencies. Key areas of focus for the conference were climate change and sustainable energy practices that can minimise the impact of our carbon footprint.</p>
+                
+                <p>Aziz Ahmad recalled the young male and female who came from underprivileged, underserved, marginalised communities who had the opportunity to learn career-building skills from CodersTrust and now are making a living in the global employment market.</p>`
+            },
+            'wges-nova': {
+                title: 'WGES Council Announces Mr. Aziz Ahmad as 2022 WGES NOVA Award Recipient',
+                category: 'Award',
+                date: 'March 29, 2022',
+                image: 'WGES_logo.webp',
+                content: `<p>The World Green Energy Symposium (WGES) Council, Ambassadors and Partners announce Mr. Aziz Ahmad, CEO and Founder of UTC Associates and Co-Founder of CodersTrust the 2022 WGES NOVA Award Recipient.</p>
+                
+                <p>The WGES NOVA award is presented to those who have made outstanding contributions in clean energy or sustainable innovations in existing energy technologies based on actual case studies. This year WGES also celebrates and highlights individuals and organizations who have shown exemplary leadership, innovation, and commitment to solving societal inequities through sustainable and educational solutions.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"The youth, especially the female community, who struggle to find a comfortable living, is our prime concern. The vision of CodersTrust is to provide technical and soft-skill training for students/trainees in the global south and emerging markets."</blockquote>
+                    <cite>— Aziz Ahmad</cite>
+                </div>
+                
+                <p>Mr. Ahmad has shared his commitment and expertise around the world. At the Vatican Conference sponsored by Pope Francis, where he was invited to present. At the European Parliament in Belgium his speech was on policy frameworks for meaningful usage of artificial intelligence. He has also presented at the Central American Conference in Guatemala and has spoken at several panels at the Davos World Economic Forum.</p>`
+            },
+            'nysac-conference': {
+                title: 'UTC Associates Supports New York Counties at Annual NYSAC Legislative Conference',
+                category: 'Event',
+                date: 'March 19, 2022',
+                image: 'nysac-conference.webp',
+                content: `<p>UTC Associates, Inc., (UTC) a solutions-based business and technology consulting company, is excited to announce that it participated in the New York State Association of Counties (NYSAC) 2022 Legislative Conference, that was held March 14-16, 2022, in Albany.</p>
+                
+                <p>NYSAC Legislative Conference 2022, a three-day event, featured 21 essential workshops covering a full range of vital topics for county government officials ranging from procurement, environmental leadership, and other topics such as technology uses, applications and deployments.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"Our long-standing relationships and current work for various NY State, County and City governments continues to expand and we are delighted to be a supporting sponsor of this important event."</blockquote>
+                    <cite>— Aziz Ahmad, CEO of UTC</cite>
+                </div>
+                
+                <p>UTC has advanced skills and expertise in the Cyber Security, Cloud onboarding, DevOps area and across the technology space with significant experience working with county governments.</p>
+                
+                <p>NYSAC, NYS and County leaders including Albany County Executive Dan McCoy, Orange County Executive Steven Neuhaus, New York State Comptroller Tom DiNapoli, and Presiding Officer of Suffolk County Legislature Kevin McCaffrey appreciated the importance of UTC Associates' contribution to this event.</p>`
+            },
+            'aws-orange-county': {
+                title: 'UTC Broadens Technology Support for Orange County, N.Y. with Amazon Web Services',
+                category: 'Case Study',
+                date: 'November 8, 2021',
+                image: 'Amazon_AWS_with_OCNY_and_UTC_Team.webp',
+                content: `<p>UTC, a leading solutions-based business and technology consulting firm, has expanded its support of Orange County, N.Y. Government with the creation of an innovative Network Operations Center dedicated to the County's technology requirements.</p>
+                
+                <p>UTC previously designed two applications providing accelerated COVID-19-related logistics support for Orange County. The first application provides County government employees with real-time reporting capability, allowing the County to monitor the health and attendance of employees. The second application gives the County the ability to notify residents of the availability of vaccines.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"Providing Orange County with contactless communications channels to receive important health information will help make their work environment safer. We are proud that these applications were set up and launched quickly."</blockquote>
+                    <cite>— Faisal Hanafi, Director of Sales for U.S. State and Local Government/K-12, East, Amazon Web Services</cite>
+                </div>
+                
+                <p>Both applications were built utilizing serverless technologies such as AWS Lambda, Amazon Amplify, Amazon API Gateway, App Sync, DynamoDB, Amazon Cognito and Amazon S3 and required rapid scaling of users, from zero to 23,000, without any infrastructure overhead.</p>`
+            },
+            'eu-parliament': {
+                title: 'UTC Associates CEO Tapped to Help Shape European Parliament\'s AI Strategy',
+                category: 'Leadership',
+                date: 'November 27, 2019',
+                image: 'Aziz_Ahmad_European_Union.webp',
+                content: `<p>UTC Associates, Inc. (UTC), a leading business technology consulting company with its primary location in midtown Manhattan, announced their CEO Aziz Ahmad was invited as a global thought leader on Artificial Intelligence (AI) to participate in a special session of the Renew Europe Members of the European Parliament event.</p>
+                
+                <p>The event held in Brussels on November 20th was a continuation of the conversation initiated by Pope Francis earlier in the year, where Mr. Ahmad was also a participant.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"I was honored to receive an invitation to speak by MEP Dragos Tudorache for a high-level consultation on the future of Artificial Intelligence in the European Union (EU) and beyond."</blockquote>
+                    <cite>— Aziz Ahmad, CEO of UTC Associates</cite>
+                </div>
+                
+                <p>The event held at European Parliament in Brussels included round table discussions and reception to "celebrate building an ever-closer digital Union" where global technology and political leaders discussed the key issues facing the world as a result of AI.</p>
+                
+                <p>Mr. Ahmad emphasized having a framework to make sure we utilize AI at its fullest potential for the betterment of humanity and social good. The structure must include skill-readiness, governance, and compliance metrics as well as consider global adoption and equitable distribution globally.</p>`
+            },
+            'con-edison-award': {
+                title: 'UTC Associates Garners Con Edison\'s Minority Business Entrepreneur of the Year Award',
+                category: 'Award',
+                date: 'April 22, 2019',
+                image: 'gI_96764_ConEd_UTC_Associates_PressPicture.webp',
+                content: `<p>UTC Associates, Inc. has received the prestigious Con Edison Minority Business Entrepreneur of the Year Award at a recent ceremony held by Con Edison at their headquarters in New York City. UTC Associates has been deeply involved in Con Edison's Cloud Transformation and Advanced Meter Integration projects.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"We are proud to have an excellent MBE firm like UTC Associates help us with digital transformation. Our roll-out of millions of smart meters will make it easier for customers to make more informed decisions about how they use energy."</blockquote>
+                    <cite>— Michael Jones Bey, Director Supply Chain Diversity and Sustainability, Con Edison</cite>
+                </div>
+                
+                <p>"We are truly honored to receive this award and value the long-standing relationship with Con Edison" said Aziz Ahmad CEO of UTC Associates, Inc. "We have over eighteen years of experience providing innovative technology solutions and it is an important validation to have an organization like Con Edison recognizes our ability to deliver cutting-edge cost-effective solutions on behalf of our customers."</p>`
+            },
+            'sba-nasdaq': {
+                title: 'SBA Emerging Leader Aziz Ahmad Joins Maria Contreras-Sweet in NASDAQ Closing Bell',
+                category: 'Award',
+                date: 'February 20, 2016',
+                image: 'SBA-Image.webp',
+                content: `<p>SBA Emerging Business Leader Aziz Ahmad, CEO of UTC Associates, joins Maria Contreras-Sweet, Administrator of SBA and a member of President Obama's cabinet, in NASDAQ closing Bell ceremony.</p>
+                
+                <p>This auspicious event took place on February 12, 2016 at the NASDAQ MarketSite located at 4 Times Square in New York, where over 50 entrepreneurs were present, including members of the NASDAQ and SBA leadership teams, as well as chamber and business leaders.</p>
+                
+                <p>Ringing The Closing Bell at the NASDAQ is very special, where stocks of over 2,300 U.S. companies and over 275 foreign companies are traded, and with a market capitalization listed over $4.5 trillion. This bell ringing is watched live by millions worldwide each day.</p>
+                
+                <p>SBA has honored business personality Aziz Ahmad, CEO of UTC Associates for his extraordinary contribution in the field of business and financial sector for more than two decades in the USA. Mr. Ahmad was inducted into the highly coveted SBA Emerging Leaders program in 2015.</p>`
+            },
+            'grove-school': {
+                title: 'Aziz Ahmad, CEO of UTC, is Andrew Grove School of Engineering Wall of Honor Inductee',
+                category: 'Award',
+                date: 'October 25, 2010',
+                image: 'grove_school.webp',
+                content: `<p>Aziz Ahmad, CEO of UTC Associates, Inc., was recently inducted to the Wall of Honor at the Andrew Grove School of Engineering, City College of the City University of New York. The Grove School, endowed by Andrew Grove, the founder of Intel and also an alumnus of City College, is the only school of engineering at the City University of New York.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"The leadership of generous alumni such as Aziz Ahmad and others is invaluable, and absolutely essential to the opportunities given to the College's diverse student body."</blockquote>
+                    <cite>— Dr. Lisa Staiano-Coico, President of City College</cite>
+                </div>
+                
+                <p>Dean of Engineering, Dr. Joseph Barba, said, "We salute Aziz Ahmad for his leadership and his vision. Not only does he devote his time, but has the foresight to always bring his connections to business, community and government to City College."</p>
+                
+                <p>In 2010, a leading community leader and benefactor, Mr. Ahmad has established the "Aziz Ahmad Leadership Lectures Series" at the CCNY, School of Engineering. He is also the board member of Engineering Leadership Council at the Grove School of Engineering at CCNY.</p>`
+            },
+            'culver-studios': {
+                title: 'The Culver Studios Selects UTC Associates for Managed Services',
+                category: 'Case Study',
+                date: 'May 15, 2009',
+                image: 'culver-studios.webp',
+                content: `<p>The Culver Studios has signed a multi-year deal with the UTC Associates, a leading network and systems integrator to upgrade its network to support VoIP, Wireless, and Video Services. UTC created a new network that provided fiber connectivity to all building and deployed a custom VoIP solution based on Asterisk running on Blade Servers.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"UTC has since migrated us from an out of life retired ROLM PBX to an IP PBX and increased our bandwidth by 100 times and enabled us to have one network that supports our clients needs."</blockquote>
+                    <cite>— James C. Cella, President & CEO, The Culver Studios</cite>
+                </div>
+                
+                <p>The Culver Studios is a premier Studio with high profile clients including Sony Pictures. UTC worked closely with The Culver Studios to customize its network to the requirements needed by Production Companies.</p>
+                
+                <p>UTC Associates leverages technology as the key driver to optimizing resources, drive down costs while reducing the carbon footprint. UTC has helped The Culver Studios deploy green technologies that include VoIP mobility applications and Virtualization.</p>`
+            },
+            'aaari-award': {
+                title: 'UTC Associates\' CEO is Recipient of First Asian American Distinguished Alumni Award',
+                category: 'Award',
+                date: 'October 30, 2008',
+                image: 'aaari-logo.webp',
+                content: `<p>Aziz Ahmad, CEO of UTC Associates, a leading Systems and Network Integration Company, is the recipient of the first Asian American Distinguished Alumni Award by AAARI, Asian American / Asian Research Institute (AAARI) of City University of New York.</p>
+                
+                <p>The annual Gala is attended by over 400 Asian and non-Asian academic, business, civic and community leaders, faculty, staff and students. Their other honoree this year is Christine C. Quinn, the speaker, New York City Council.</p>
+                
+                <div class="modal-quote">
+                    <blockquote>"Aziz Ahmad's story is an inspiring one. Mr. Ahmad, a City College of New York alumnus, credits CUNY with shaping his view of America and the world. He exemplifies the contributions of Asian American CUNY alumni, not just by his business success, but by his many philanthropic endeavors."</blockquote>
+                    <cite>— Joyce Moy, Executive Director of AAARI</cite>
+                </div>
+                
+                <p>"Aziz Ahmad is a distinguished member of the Board of Grameen Solutions and it is my pleasure to work with Aziz. He keeps us connected with the expanding frontier of Information Technology," said Nobel Laureate Professor Muhammad Yunus, the 2006 Nobel Peace Prize Winner.</p>`
+            }
+        };
+
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const articleCards = document.querySelectorAll('.article-card');
+        const articleCountEl = document.getElementById('articleCount');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modalClose');
+        const scrollProgress = document.getElementById('scrollProgress');
+        const heroFeatured = document.querySelector('.hero-featured');
+
+        // ============ SCROLL PROGRESS ============
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+            
+            // Navbar scroll
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ============ SCROLL ANIMATIONS ============
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+
+        // Observe article cards with stagger
+        articleCards.forEach((card, index) => {
+            card.style.transitionDelay = `${(index % 3) * 0.1}s`;
+            revealObserver.observe(card);
+        });
+
+        // Observe filter buttons
+        filterBtns.forEach((btn, index) => {
+            btn.style.transitionDelay = `${index * 0.05}s`;
+            revealObserver.observe(btn);
+        });
+
+        // Observe CTA elements
+        const ctaH2 = document.querySelector('.cta-content h2');
+        const ctaP = document.querySelector('.cta-content p');
+        const ctaBtn = document.querySelector('.cta-btn');
+        if (ctaH2) revealObserver.observe(ctaH2);
+        if (ctaP) revealObserver.observe(ctaP);
+        if (ctaBtn) revealObserver.observe(ctaBtn);
+
+        // ============ MOBILE MENU ============
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ============ FILTER ============
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                let count = 0;
+
+                articleCards.forEach((card, index) => {
+                    const category = card.dataset.category;
+                    if (filter === 'all' || category === filter) {
+                        card.classList.remove('hidden');
+                        card.style.transitionDelay = `${(count % 3) * 0.05}s`;
+                        count++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                articleCountEl.textContent = count;
+            });
+        });
+
+        // ============ MODAL ============
+        function openModal(articleKey) {
+            const data = articles[articleKey];
+            if (data) {
+                document.getElementById('modalImage').src = data.image;
+                document.getElementById('modalCategory').textContent = data.category;
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalDate').textContent = data.date;
+                document.getElementById('modalCategoryText').textContent = data.category;
+                document.getElementById('modalBody').innerHTML = data.content;
+                
+                modalOverlay.classList.add('active');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Article card clicks
+        articleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const articleKey = card.dataset.article;
+                openModal(articleKey);
+            });
+        });
+
+        // Featured article click
+        if (heroFeatured) {
+            heroFeatured.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('pope-francis');
+            });
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        document.getElementById('modalCloseMobile').addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | UTC Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0D3B2E;
+            --forest-light: #145A44;
+            --forest-dark: #082820;
+            --mint: #10B981;
+            --mint-light: #34D399;
+            --mint-dark: #059669;
+            --white: #FFFFFF;
+            --cream: #FAF9F7;
+            --sand: #F3F1ED;
+            --stone: #E8E4DE;
+            --ink: #1A1A1A;
+            --charcoal: #404040;
+            --slate: #6B6B6B;
+            --silver: #9A9A9A;
+            --midnight: #111111;
+            --graphite: #1A1A1A;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 32px rgba(0,0,0,0.1);
+            --shadow-xl: 0 24px 48px rgba(0,0,0,0.12);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-body); 
+            font-size: 16px; 
+            line-height: 1.6; 
+            color: var(--charcoal); 
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 { 
+            font-family: var(--font-display); 
+            font-weight: 500; 
+            line-height: 1.15; 
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+        h4, h5, h6 { font-family: var(--font-body); font-weight: 600; color: var(--ink); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1.5rem 2rem;
+            background: rgba(13, 59, 46, 0.4);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--stone);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .navbar .logo-img { transition: all 0.5s cubic-bezier(0.4,0,0.2,1); height: 40px; }
+        .navbar.scrolled .logo-img { height: 32px; filter: brightness(0) saturate(100%); }
+        .nav-container { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .navbar.scrolled .nav-link { color: var(--charcoal); }
+        .navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active { color: var(--ink); background: var(--sand); }
+        .navbar.scrolled .btn-ghost { color: var(--charcoal); }
+        .logo { display: flex; align-items: center; }
+        .logo-img { height: 40px; width: auto; transition: all 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85); padding: 0.5rem 0.875rem; border-radius: var(--radius-md); transition: all 0.2s ease; }
+        .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--white); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.625rem 1.25rem; font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; position: relative; overflow: hidden; }
+        .btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.15); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.6s ease, height 0.6s ease; }
+        .btn:hover::after { width: 300px; height: 300px; }
+        .btn-ghost { background: transparent; color: rgba(255,255,255,0.85); }
+        .btn-ghost:hover { color: var(--white); }
+        .btn-accent { background: var(--mint); color: var(--white); }
+        .btn-accent:hover { background: var(--mint-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,185,129,0.4); }
+        .btn-lg { padding: 0.875rem 1.75rem; font-size: 0.9375rem; }
+        .btn-outline { background: transparent; border: 2px solid var(--stone); color: var(--charcoal); }
+        .btn-outline:hover { border-color: var(--forest); color: var(--forest); }
+        .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .mobile-menu-btn span { display: block; width: 20px; height: 2px; background: var(--white); margin: 4px 0; transition: all 0.3s ease; border-radius: 2px; }
+        .navbar.scrolled .mobile-menu-btn span { background: var(--ink); }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--forest-dark); z-index: 999; padding: 2rem; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-links a { font-size: 1.25rem; font-weight: 500; color: rgba(255,255,255,0.8); padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: color 0.2s; }
+        .mobile-menu-links a:hover { color: var(--mint); }
+        .mobile-menu-cta { margin-top: 2rem; }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: auto;
+            background: var(--forest-dark);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 120px 2rem 60px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 20% 80%, rgba(16,185,129,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(13,59,46,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(16,185,129,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(12rem, 20vw, 22rem);
+            font-weight: 700;
+            color: rgba(255,255,255,0.015);
+            letter-spacing: -0.04em;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+        .hero-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content { position: relative; }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 2rem;
+            height: 2px;
+            background: var(--mint);
+            border-radius: 2px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+        }
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, var(--mint), var(--mint-light), var(--mint));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+        .hero-description {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            opacity: 0;
+            animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+        }
+        .hero-stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mint);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .hero-stat-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .hero-visual-side {
+            position: relative;
+            opacity: 0;
+            animation: heroFadeIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+        }
+        .hero-image-card {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .hero-image-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            object-position: center 25%;
+            display: block;
+        }
+        .hero-image-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        .hero-image-overlay h3 {
+            font-size: 1.125rem;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+        .hero-image-overlay p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .hero-floating-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            animation: float 5s ease-in-out infinite;
+            z-index: 3;
+        }
+        .hero-floating-badge .badge-number {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--forest);
+            line-height: 1;
+        }
+        .hero-floating-badge .badge-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        @keyframes heroFadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes heroFadeIn { 0% { opacity: 0; transform: translateY(20px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-scale.visible { opacity: 1; transform: scale(1); }
+        .stagger-1 { transition-delay: 0.08s; } .stagger-2 { transition-delay: 0.16s; }
+        .stagger-3 { transition-delay: 0.24s; } .stagger-4 { transition-delay: 0.32s; }
+
+        /* ========== MISSION ========== */
+        .mission {
+            padding: 7rem 2rem;
+            background: var(--white);
+            position: relative;
+        }
+        .mission-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .mission-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .mission-label::before {
+            content: '';
+            width: 2rem;
+            height: 2px;
+            background: var(--mint);
+            border-radius: 2px;
+        }
+        .mission h2 {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            margin-bottom: 1.5rem;
+        }
+        .mission-text {
+            font-size: 1.0625rem;
+            color: var(--charcoal);
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+        .mission-highlight {
+            background: var(--cream);
+            border-left: 3px solid var(--mint);
+            padding: 1.5rem 2rem;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            margin-top: 2rem;
+        }
+        .mission-highlight p {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            color: var(--forest);
+            font-style: italic;
+            line-height: 1.7;
+        }
+        .mission-visual {
+            position: relative;
+        }
+        .mission-image {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+        .mission-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+        .mission-accent-card {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            background: var(--forest);
+            color: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem 2rem;
+            box-shadow: var(--shadow-xl);
+            z-index: 2;
+        }
+        .mission-accent-card h4 {
+            font-size: 2rem;
+            font-family: var(--font-display);
+            color: var(--mint);
+            margin-bottom: 0.25rem;
+        }
+        .mission-accent-card p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        /* ========== DIFFERENTIATORS ========== */
+        .differentiators {
+            padding: 7rem 2rem;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        .differentiators::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .diff-container { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        .diff-header { text-align: center; margin-bottom: 4rem; }
+        .diff-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .diff-label::before, .diff-label::after {
+            content: '';
+            width: 2rem;
+            height: 2px;
+            background: var(--mint);
+            border-radius: 2px;
+        }
+        .diff-header h2 {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .diff-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            border: 1px solid var(--stone);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .diff-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--mint), var(--forest));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .diff-card:hover::before { transform: scaleX(1); }
+        .diff-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .diff-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--forest), var(--forest-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--mint);
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        .diff-card:hover .diff-icon { transform: scale(1.1) rotate(-3deg); }
+        .diff-card h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+        .diff-card p {
+            font-size: 0.9375rem;
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        /* ========== LEADERSHIP ========== */
+        .leadership {
+            padding: 7rem 2rem;
+            background: var(--white);
+        }
+        .leadership-container { max-width: 1280px; margin: 0 auto; }
+        .leadership-header { margin-bottom: 4rem; }
+        .leadership-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .leadership-label::before {
+            content: '';
+            width: 2rem; height: 2px;
+            background: var(--mint);
+            border-radius: 2px;
+        }
+        .leadership-header h2 {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            margin-bottom: 1rem;
+        }
+        .leadership-header p {
+            font-size: 1.0625rem;
+            color: var(--charcoal);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .leader-feature {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 4rem;
+            align-items: center;
+            background: var(--cream);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+        }
+        .leader-image {
+            height: 100%;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        .leader-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+        .leader-info {
+            padding: 3.5rem 3.5rem 3.5rem 0;
+        }
+        .leader-role {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 0.75rem;
+        }
+        .leader-info h3 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            margin-bottom: 1.5rem;
+        }
+        .leader-info p {
+            font-size: 1rem;
+            color: var(--charcoal);
+            line-height: 1.85;
+            margin-bottom: 1rem;
+        }
+        .leader-achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+        .achievement-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--stone);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--forest);
+            transition: all 0.3s ease;
+        }
+        .achievement-tag:hover {
+            background: var(--forest);
+            color: var(--white);
+            border-color: var(--forest);
+        }
+        .achievement-tag svg { width: 14px; height: 14px; }
+
+        /* ========== CERTIFICATIONS ========== */
+        .certifications {
+            padding: 7rem 2rem;
+            background: var(--forest-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .certifications::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse 50% 50% at 10% 90%, rgba(16,185,129,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 90% 10%, rgba(16,185,129,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .cert-container { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+        .cert-header { text-align: center; margin-bottom: 4rem; }
+        .cert-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .cert-label::before, .cert-label::after {
+            content: '';
+            width: 2rem; height: 2px;
+            background: var(--mint);
+            border-radius: 2px;
+        }
+        .cert-header h2 {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            color: var(--white);
+        }
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .cert-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: 2.25rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, rgba(16,185,129,0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .cert-card:hover::after { opacity: 1; }
+        .cert-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(16,185,129,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .cert-card-icon {
+            width: 56px; height: 56px;
+            margin: 0 auto 1.25rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        .cert-card-icon svg { color: var(--mint); width: 24px; height: 24px; }
+        .cert-card h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .cert-card p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            padding: 7rem 2rem;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            border: 1px solid rgba(16,185,129,0.08);
+            top: -200px; right: -100px;
+            pointer-events: none;
+        }
+        .cta::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            border: 1px solid rgba(16,185,129,0.06);
+            bottom: -100px; left: -50px;
+            pointer-events: none;
+        }
+        .cta-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .cta h2 {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            margin-bottom: 1.25rem;
+        }
+        .cta p {
+            font-size: 1.0625rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer { background: var(--midnight); color: var(--silver); padding: 5rem 2rem 2rem; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 2fr; gap: 5rem; }
+        .footer-brand { max-width: 280px; }
+        .footer-logo { margin-bottom: 1.5rem; }
+        .footer-logo-img { height: 40px; width: auto; }
+        .footer-tagline { font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .footer-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--white); transition: color 0.2s; }
+        .footer-cta:hover { color: var(--mint); }
+        .footer-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .footer-column h4 { font-size: 0.8125rem; font-weight: 600; color: var(--white); margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-column a { display: block; font-size: 0.875rem; color: var(--slate); padding: 0.375rem 0; transition: color 0.2s, transform 0.3s, padding-left 0.3s; }
+        .footer-column a:hover { color: var(--white); transform: translateX(6px); padding-left: 6px; }
+        .footer-bottom { max-width: 1280px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--slate); }
+        .footer-certifications { display: flex; gap: 1.5rem; font-size: 0.8125rem; color: var(--slate); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .hero-description { margin: 0 auto 2.5rem; }
+            .hero-stats { justify-content: center; }
+            .hero-visual-side { max-width: 500px; margin: 0 auto; }
+            .hero-floating-badge { right: 0; }
+            .mission-container { grid-template-columns: 1fr; gap: 3rem; }
+            .mission-visual { order: -1; }
+            .diff-grid { grid-template-columns: repeat(2, 1fr); }
+            .leader-feature { grid-template-columns: 1fr; }
+            .leader-info { padding: 2.5rem; }
+            .leader-image { min-height: 400px; }
+            .cert-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu { display: block; }
+            .hero { padding: 120px 1.5rem 60px; }
+            .hero-stats { flex-direction: column; gap: 1.5rem; }
+            .diff-grid { grid-template-columns: 1fr; }
+            .cert-grid { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .hero { padding: 110px 1rem 50px; }
+            .mission, .differentiators, .leadership, .certifications, .cta { padding: 4rem 1rem; }
+            .footer { padding: 3rem 1rem 1.5rem; }
+            .footer-links { grid-template-columns: 1fr; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logos/utc-logo.png" alt="UTC Associates" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="utc-services.html" class="nav-link">Services</a>
+                <a href="utc-practices.html" class="nav-link">Practices</a>
+                <a href="utc-about.html" class="nav-link active">About</a>
+                <a href="utc-projects.html" class="nav-link">Projects</a>
+                <a href="utc-news.html" class="nav-link">News</a>
+            </div>
+            <div class="nav-actions">
+                <a href="tel:212-344-4111" class="btn btn-ghost">212-344-4111</a>
+                <a href="index.html#contact" class="btn btn-accent">Let's Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="utc-services.html">Services</a>
+            <a href="utc-practices.html">Practices</a>
+            <a href="utc-about.html">About</a>
+            <a href="utc-projects.html">Projects</a>
+            <a href="utc-news.html">News</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-text">ABOUT</div>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-eyebrow"><span>About UTC Associates</span></div>
+                <h1>Solving Business Challenges Through <em>Technology</em></h1>
+                <p class="hero-description">We are a solutions-based technology consulting firm helping government and enterprise organizations transform, innovate, and grow through strategic technology solutions since 2001.</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-count="24">0</div>
+                        <div class="hero-stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-count="500" data-suffix="+">0</div>
+                        <div class="hero-stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-count="97" data-suffix="%">0</div>
+                        <div class="hero-stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual-side">
+                <div class="hero-image-card">
+                    <img src="aziz-wges-speech.jpg" alt="CEO Aziz Ahmad speaking at World Government Executive Summit">
+                    <div class="hero-image-overlay">
+                        <h3>Aziz Ahmad</h3>
+                        <p>CEO & Founder — Speaking at the World Government Executive Summit</p>
+                    </div>
+                </div>
+                <div class="hero-floating-badge">
+                    <div class="badge-number">Fortune 1000</div>
+                    <div class="badge-label">Clients Served</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission">
+        <div class="mission-container">
+            <div class="reveal-left">
+                <div class="mission-label"><span>Our Mission</span></div>
+                <h2>Technology That Stands Out</h2>
+                <p class="mission-text">UTC Associates, Inc. is a solutions-based business and technology consulting firm focusing on key aspects of technology infrastructure, digital transformation, enterprise systems, and cybersecurity.</p>
+                <p class="mission-text">We help clients enhance productivity by optimizing vital business functions so they work quicker, faster and most cost effectively — combining deep technical expertise with a value-driven approach that has earned the trust of Fortune 1000 companies and government agencies alike.</p>
+                <div class="mission-highlight">
+                    <p>"Our model is built on value, experience, and cost effectiveness — delivering measurable results that increase your organization's capabilities."</p>
+                </div>
+            </div>
+            <div class="mission-visual reveal-right">
+                <div class="mission-image">
+                    <img src="Aziz_Ahmad_European_Union.webp" alt="Aziz Ahmad at the European Union">
+                </div>
+                <div class="mission-accent-card">
+                    <h4>Since 2001</h4>
+                    <p>Trusted by Government & Enterprise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiators -->
+    <section class="differentiators">
+        <div class="diff-container">
+            <div class="diff-header reveal">
+                <div class="diff-label"><span>Our Advantage</span></div>
+                <h2>What Makes Us Different</h2>
+            </div>
+            <div class="diff-grid">
+                <div class="diff-card reveal stagger-1">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>Deep Technical Expertise</h3>
+                    <p>Our engineers offer educational backgrounds, experience, and industry certifications that provide the highest levels of reliability and expertise to every engagement.</p>
+                </div>
+                <div class="diff-card reveal stagger-2">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3>Proven Track Record</h3>
+                    <p>Since 2001, we've worked with organizations of all sizes — from Fortune 1000 firms to government agencies — delivering measurable, transformative results.</p>
+                </div>
+                <div class="diff-card reveal stagger-3">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Value-Driven Approach</h3>
+                    <p>We don't believe in shortcuts. Our model is based on value, experience, and cost effectiveness — ensuring every solution maximizes your investment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="leadership">
+        <div class="leadership-container">
+            <div class="leadership-header reveal">
+                <div class="leadership-label"><span>Leadership</span></div>
+                <h2>Visionary Leadership, Global Impact</h2>
+                <p>UTC Associates is led by a team of seasoned professionals with deep industry expertise and a passion for technology-driven transformation.</p>
+            </div>
+            <div class="leader-feature reveal-scale">
+                <div class="leader-image">
+                    <img src="aziz_ahmad_pope_francis.webp" alt="CEO Aziz Ahmad meets Pope Francis">
+                </div>
+                <div class="leader-info">
+                    <div class="leader-role">CEO & Founder</div>
+                    <h3>Aziz Ahmad</h3>
+                    <p>A globally recognized technology executive and thought leader, Aziz Ahmad has spent over two decades building UTC Associates into a trusted partner for government and enterprise organizations worldwide.</p>
+                    <p>From keynoting at the World Government Executive Summit to participating as a panelist at Pope Francis's Common Good in the Digital Age Summit, Aziz brings a unique blend of strategic vision, technical expertise, and global perspective.</p>
+                    <div class="leader-achievements">
+                        <span class="achievement-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+                            Global Keynote Speaker
+                        </span>
+                        <span class="achievement-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Con Edison Award Winner
+                        </span>
+                        <span class="achievement-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Vatican Summit Panelist
+                        </span>
+                        <span class="achievement-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            WGES Executive Speaker
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="cert-container">
+            <div class="cert-header reveal">
+                <div class="cert-label"><span>Trusted & Certified</span></div>
+                <h2>Certifications & Recognitions</h2>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card reveal stagger-1">
+                    <div class="cert-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    </div>
+                    <h3>GSA Schedule 70</h3>
+                    <p>Federal Government IT Services</p>
+                </div>
+                <div class="cert-card reveal stagger-2">
+                    <div class="cert-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>MBE Certified</h3>
+                    <p>Minority Business Enterprise</p>
+                </div>
+                <div class="cert-card reveal stagger-3">
+                    <div class="cert-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3>NYC & NYS Certified</h3>
+                    <p>State & City Certification</p>
+                </div>
+                <div class="cert-card reveal stagger-4">
+                    <div class="cert-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                    <h3>Con Edison Award</h3>
+                    <p>Entrepreneur of the Year</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-container reveal">
+            <h2>Ready to Work With Us?</h2>
+            <p>Let's discuss how UTC Associates can help your organization achieve its technology goals with proven expertise and measurable results.</p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+                <a href="utc-projects.html" class="btn btn-outline btn-lg">See Our Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="logos/utc-logo.png" alt="UTC Associates" class="footer-logo-img">
+                </div>
+                <p class="footer-tagline">Technology Solutions That Increase Your Value. Strategic consulting since 2001.</p>
+                <a href="mailto:info@utcassociates.com" class="footer-cta">Contact Us →</a>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <a href="utc-services.html">Overview</a>
+                    <a href="utc-services.html#cloud">Cloud Migration</a>
+                    <a href="utc-services.html#security">Cyber Security</a>
+                    <a href="utc-services.html#grc">GRC Solutions</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Practices</h4>
+                    <a href="utc-practices.html">All Practices</a>
+                    <a href="utc-practices.html#strategy">Strategy</a>
+                    <a href="utc-practices.html#devops">DevOps</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="utc-about.html">About</a>
+                    <a href="utc-news.html">News</a>
+                    <a href="utc-projects.html">Projects</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <a href="mailto:info@utcassociates.com">info@utcassociates.com</a>
+                    <a href="tel:212-344-4111">212-344-4111</a>
+                    <a href="#">40 Wall Street, NYC</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UTC Associates, Inc. All rights reserved.</p>
+            <div class="footer-certifications">
+                <span>GSA Schedule 70</span>
+                <span>MBE Certified</span>
+                <span>NYC & NYS Certified</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => { mobileMenuBtn.classList.toggle('active'); mobileMenu.classList.toggle('active'); document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : ''; });
+        mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenuBtn.classList.remove('active'); mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }); });
+
+        // Scroll reveal
+        const revEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const revObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+        revEls.forEach(el => revObs.observe(el));
+
+        // Counter animation for hero stats
+        function animateCounter(el) {
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || '';
+            const duration = 2000;
+            const start = performance.now();
+            function ease(x) { return x === 1 ? 1 : 1 - Math.pow(2, -10 * x); }
+            function update(now) {
+                const p = Math.min((now - start) / duration, 1);
+                el.textContent = Math.round(ease(p) * target) + suffix;
+                if (p < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Trigger counters when hero is visible
+        const heroStats = document.querySelectorAll('.hero-stat-number[data-count]');
+        const statsObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    animateCounter(entry.target);
+                    entry.target.dataset.animated = 'true';
+                }
+            });
+        }, { threshold: 0.5 });
+        heroStats.forEach(el => statsObs.observe(el));
+
+        // Parallax on hero
+        const heroContent = document.querySelector('.hero-content');
+        const heroVisual = document.querySelector('.hero-visual-side');
+        window.addEventListener('scroll', () => {
+            const s = window.scrollY;
+            if (s < 800) {
+                if (heroContent) heroContent.style.transform = `translateY(${s * 0.12}px)`;
+                if (heroVisual) heroVisual.style.transform = `translateY(${s * 0.08}px)`;
+            }
+        }, { passive: true });
+
+        // Smooth anchor scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+    </script>
+</body>
+</html>

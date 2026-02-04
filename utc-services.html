@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | UTC Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0D3B2E;
+            --forest-light: #145A44;
+            --mint: #10B981;
+            --mint-dark: #059669;
+            --white: #FFFFFF;
+            --cream: #FAF9F7;
+            --sand: #F3F1ED;
+            --stone: #E8E4DE;
+            --ink: #1A1A1A;
+            --charcoal: #404040;
+            --slate: #6B6B6B;
+            --silver: #9A9A9A;
+            --midnight: #111111;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; color: var(--ink); letter-spacing: -0.02em; }
+        h4, h5, h6 { font-family: var(--font-body); font-weight: 600; color: var(--ink); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1.5rem 2rem;
+            background: rgba(13,59,46,0.4);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--stone);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .navbar .logo-img { transition: all 0.5s cubic-bezier(0.4,0,0.2,1); height: 40px; }
+        .navbar.scrolled .logo-img { height: 32px; filter: brightness(0) saturate(100%); }
+        .nav-container { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .navbar.scrolled .nav-link { color: var(--charcoal); }
+        .navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active { color: var(--ink); background: var(--sand); }
+        .navbar.scrolled .btn-ghost { color: var(--charcoal); }
+        .logo { display: flex; align-items: center; }
+        .logo-img { height: 40px; width: auto; transition: all 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85); padding: 0.5rem 0.875rem; border-radius: var(--radius-md); transition: all 0.2s ease; text-decoration: none; }
+        .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--white); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.625rem 1.25rem; font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+        .btn-ghost { background: transparent; color: rgba(255,255,255,0.85); }
+        .btn-ghost:hover { color: var(--white); }
+        .btn-primary { background: var(--forest); color: var(--white); }
+        .btn-primary:hover { background: var(--forest-light); }
+        .btn-accent { background: var(--mint); color: var(--white); }
+        .btn-accent:hover { background: var(--mint-dark); }
+        .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--stone); }
+        .btn-outline:hover { border-color: var(--ink); }
+        .btn-outline-light { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); }
+        .btn-outline-light:hover { background: var(--white); color: var(--forest); }
+        .btn-lg { padding: 0.875rem 1.75rem; font-size: 0.9375rem; }
+
+        /* Mobile menu */
+        .mobile-menu-btn { display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer; z-index: 1002; }
+        .mobile-menu-btn span { display: block; width: 20px; height: 2px; background: var(--white); margin: 5px auto; transition: all 0.3s ease; }
+        .navbar.scrolled .mobile-menu-btn span { background: var(--ink); }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 1001; padding: 100px 2rem 2rem; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-links a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; color: var(--ink); padding: 0.75rem 0; border-bottom: 1px solid var(--stone); transition: color 0.2s; text-decoration: none; }
+        .mobile-menu-links a:hover { color: var(--mint); }
+        .mobile-menu-cta { margin-top: 2rem; }
+        .mobile-menu-cta .btn { width: 100%; justify-content: center; }
+
+        /* ============ HERO — DARK, HIGH CONTRAST ============ */
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--mint);
+            margin-bottom: 1rem;
+        }
+        .page-hero {
+            padding: 160px 2rem 6rem;
+            background: var(--midnight);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .page-hero-content { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.25rem;
+            color: var(--white);
+        }
+        .page-hero p {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+
+        /* ============ INTRO — WHITE ON CLEAN ============ */
+        .services-intro {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        .intro-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+        .intro-text h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            margin-bottom: 1.5rem;
+        }
+        .intro-text p {
+            font-size: 1rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+        .intro-stats { display: flex; flex-direction: column; gap: 1rem; }
+        .stat-card {
+            padding: 1.5rem 1.75rem;
+            background: var(--midnight);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        .stat-number {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--mint);
+            line-height: 1;
+        }
+        .stat-label {
+            display: block;
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.5rem;
+        }
+
+        /* ============ SERVICE SECTIONS — ALTERNATING DARK/LIGHT ============ */
+        .service-section {
+            padding: 6rem 2rem;
+            scroll-margin-top: 80px;
+        }
+        /* Light sections */
+        .service-section.light {
+            background: var(--white);
+        }
+        /* Dark sections — high contrast */
+        .service-section.dark {
+            background: var(--midnight);
+        }
+        .service-section.dark .service-content h2 { color: var(--white); }
+        .service-section.dark .service-content > p { color: rgba(255,255,255,0.6); }
+        .service-section.dark .service-number { color: var(--mint); }
+        .service-section.dark .feature-content h4 { color: var(--white); }
+        .service-section.dark .feature-content p { color: rgba(255,255,255,0.5); }
+        .service-section.dark .service-features li { border-bottom-color: rgba(255,255,255,0.08); }
+        .service-section.dark .btn-primary { background: var(--mint); color: var(--white); }
+        .service-section.dark .btn-primary:hover { background: var(--mint-dark); }
+
+        .service-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .service-number {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--mint);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        .service-content h2 {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            margin-bottom: 1rem;
+        }
+        .service-content > p {
+            font-size: 1rem;
+            color: var(--charcoal);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        /* Features list */
+        .service-features { margin-bottom: 2rem; }
+        .service-features li {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--stone);
+        }
+        .service-features li:last-child { border-bottom: none; }
+        .feature-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--mint);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+        .feature-content h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .feature-content p { font-size: 0.875rem; color: var(--charcoal); line-height: 1.5; }
+
+        /* Service visual cards */
+        .service-visual { display: flex; justify-content: center; }
+        .service-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid var(--stone);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+        }
+        .service-card-dark {
+            background: var(--ink);
+            border-color: rgba(255,255,255,0.08);
+        }
+        /* Cards inside dark sections need inverted styling */
+        .service-section.dark .service-card {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .service-section.dark .service-card:hover {
+            box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+        }
+        .service-section.dark .card-title { color: var(--white); }
+        .service-section.dark .service-card .card-stat { border-bottom-color: rgba(255,255,255,0.08); }
+        .service-section.dark .card-stat-label { color: rgba(255,255,255,0.5); }
+        .service-section.dark .service-card-header { border-bottom-color: rgba(255,255,255,0.08); }
+
+        .service-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--stone);
+        }
+        .service-card-dark .service-card-header { border-bottom-color: rgba(255,255,255,0.1); }
+        .card-icon { font-size: 1.25rem; }
+        .card-title { font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; color: var(--ink); }
+        .service-card-dark .card-title { color: var(--white); }
+        .service-card-body { padding: 1.5rem; }
+        .card-stat { padding: 0.875rem 0; border-bottom: 1px solid var(--stone); }
+        .card-stat:last-child { border-bottom: none; }
+        .service-card-dark .card-stat { border-bottom-color: rgba(255,255,255,0.1); }
+        .card-stat-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--mint); }
+        .card-stat-label { font-size: 0.8125rem; color: var(--charcoal); }
+        .service-card-dark .card-stat-label { color: var(--silver); }
+
+        /* ============ CTA SECTION ============ */
+        .page-cta {
+            padding: 6rem 2rem;
+            background: var(--forest);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(16,185,129,0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .page-cta-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+        .page-cta h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); color: var(--white); margin-bottom: 1rem; }
+        .page-cta p { font-size: 1rem; color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
+
+        /* ============ FOOTER ============ */
+        .footer { background: var(--midnight); color: var(--silver); padding: 5rem 2rem 2rem; }
+        .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 2fr; gap: 5rem; }
+        .footer-brand { max-width: 280px; }
+        .footer-logo { margin-bottom: 1.5rem; }
+        .footer-logo-img { height: 40px; width: auto; }
+        .footer-tagline { font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .footer-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--white); }
+        .footer-cta:hover { color: var(--mint); }
+        .footer-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .footer-column h4 { font-size: 0.8125rem; font-weight: 600; color: var(--white); margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-column a { display: block; font-size: 0.875rem; color: var(--slate); padding: 0.375rem 0; transition: color 0.3s, transform 0.3s, padding-left 0.3s; }
+        .footer-column a:hover { color: var(--white); transform: translateX(4px); padding-left: 4px; }
+        .footer-bottom { max-width: 1280px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--slate); }
+        .footer-certifications { display: flex; gap: 1.5rem; font-size: 0.8125rem; color: var(--slate); }
+
+        /* ============ SCROLL ANIMATIONS ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
+        /* Hero entrance */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .page-hero .section-label { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both; }
+        .page-hero h1 { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+        .page-hero p { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .intro-container, .service-container { grid-template-columns: 1fr; gap: 3rem; }
+            .service-visual { order: -1; }
+            .footer-container { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu { display: block; }
+            .intro-stats { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .stat-card { flex: 1 1 180px; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .page-hero { padding: 130px 1rem 4rem; }
+            .services-intro, .service-section, .page-cta { padding: 4rem 1rem; }
+            .footer { padding: 3rem 1rem 1.5rem; }
+            .footer-links { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logos/utc-logo.png" alt="UTC Associates" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="utc-services.html" class="nav-link active">Services</a>
+                <a href="utc-practices.html" class="nav-link">Practices</a>
+                <a href="utc-about.html" class="nav-link">About</a>
+                <a href="utc-projects.html" class="nav-link">Projects</a>
+                <a href="utc-news.html" class="nav-link">News</a>
+            </div>
+            <div class="nav-actions">
+                <a href="tel:212-344-4111" class="btn btn-ghost">212-344-4111</a>
+                <a href="index.html#contact" class="btn btn-accent">Let's Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="utc-services.html">Services</a>
+            <a href="utc-practices.html">Practices</a>
+            <a href="utc-about.html">About</a>
+            <a href="utc-projects.html">Projects</a>
+            <a href="utc-news.html">News</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <span class="section-label">Our Services</span>
+            <h1>Technology Solutions for the Modern Enterprise</h1>
+            <p>From cloud migration to cyber security, we deliver comprehensive IT services that drive digital transformation and business value.</p>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="services-intro">
+        <div class="intro-container">
+            <div class="intro-text reveal">
+                <h2>Strategic Thinking. Innovative Design. Accountable Delivery.</h2>
+                <p>At UTC, we believe that our work should increase your value. Since 2001, we've been working with organizations of all sizes, from the Fortune 100 to Government, to Main Street USA. We help clients enhance productivity by optimizing vital business functions.</p>
+            </div>
+            <div class="intro-stats">
+                <div class="stat-card reveal stagger-1">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card reveal stagger-2">
+                    <span class="stat-number">GSA</span>
+                    <span class="stat-label">Schedule 70 Certified</span>
+                </div>
+                <div class="stat-card reveal stagger-3">
+                    <span class="stat-number">MBE</span>
+                    <span class="stat-label">Certified Enterprise</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 01: Cloud — DARK -->
+    <section class="service-section dark" id="cloud">
+        <div class="service-container">
+            <div class="service-content reveal-left">
+                <span class="service-number">01 — Cloud Migration</span>
+                <h2>Cloud Migration & Digital Transformation</h2>
+                <p>Transform your infrastructure with strategic cloud migration services. We help organizations move from legacy systems to scalable, secure cloud environments.</p>
+                <ul class="service-features">
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Cloud Assessment & Strategy</h4>
+                            <p>Comprehensive analysis and tailored migration roadmap</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Migration Execution</h4>
+                            <p>Secure, phased migration with minimal business disruption</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Optimization & Management</h4>
+                            <p>Ongoing cloud optimization and 24/7 support services</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="service-visual reveal-right">
+                <div class="service-card">
+                    <div class="service-card-header">
+                        <span class="card-icon">☁️</span>
+                        <span class="card-title">Cloud Services</span>
+                    </div>
+                    <div class="service-card-body">
+                        <div class="card-stat">
+                            <span class="card-stat-value">40%</span>
+                            <span class="card-stat-label">Average Cost Reduction</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-value">99.9%</span>
+                            <span class="card-stat-label">Uptime Guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 02: Cyber Security — LIGHT -->
+    <section class="service-section light" id="security">
+        <div class="service-container" style="direction:rtl">
+            <div class="service-visual" style="direction:ltr">
+                <div class="service-card service-card-dark reveal-left">
+                    <div class="service-card-header">
+                        <span class="card-icon">🛡️</span>
+                        <span class="card-title">Security Dashboard</span>
+                    </div>
+                    <div class="service-card-body">
+                        <div class="card-stat">
+                            <span class="card-stat-value">24/7</span>
+                            <span class="card-stat-label">Threat Monitoring</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-value">100%</span>
+                            <span class="card-stat-label">Compliance Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-content reveal-right" style="direction:ltr">
+                <span class="service-number">02 — Cyber Security</span>
+                <h2>Enterprise Cyber Security</h2>
+                <p>Protect your organization with comprehensive security solutions. Our certified experts help you identify vulnerabilities and implement robust defenses.</p>
+                <ul class="service-features">
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Threat Assessment & Detection</h4>
+                            <p>Proactive threat monitoring and vulnerability scanning</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Security Architecture</h4>
+                            <p>Enterprise security frameworks aligned with best practices</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 03: GRC — DARK -->
+    <section class="service-section dark" id="grc">
+        <div class="service-container">
+            <div class="service-content reveal-left">
+                <span class="service-number">03 — GRC Solutions</span>
+                <h2>Governance, Risk & Compliance</h2>
+                <p>Implement comprehensive GRC frameworks that align with regulatory requirements. Our MetricStream expertise ensures seamless compliance management.</p>
+                <ul class="service-features">
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Risk Assessment & Management</h4>
+                            <p>Identify and prioritize organizational risks</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="feature-content">
+                            <h4>MetricStream Implementation</h4>
+                            <p>Expert deployment of MetricStream GRC platform</p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="service-visual reveal-right">
+                <div class="service-card">
+                    <div class="service-card-header">
+                        <span class="card-icon">📊</span>
+                        <span class="card-title">GRC Platform</span>
+                    </div>
+                    <div class="service-card-body">
+                        <div class="card-stat">
+                            <span class="card-stat-value">MetricStream</span>
+                            <span class="card-stat-label">Certified Partner</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-value">100%</span>
+                            <span class="card-stat-label">Audit Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="page-cta">
+        <div class="page-cta-content reveal">
+            <h2>Ready to Transform Your Technology?</h2>
+            <p>Let's discuss how UTC Associates can help your organization achieve its technology goals.</p>
+            <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="logos/utc-logo.png" alt="UTC Associates" class="footer-logo-img">
+                </div>
+                <p class="footer-tagline">Technology Solutions That Increase Your Value.</p>
+                <a href="mailto:info@utcassociates.com" class="footer-cta">Contact Us →</a>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <a href="utc-services.html">Overview</a>
+                    <a href="#cloud">Cloud Migration</a>
+                    <a href="#security">Cyber Security</a>
+                    <a href="#grc">GRC Solutions</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Practices</h4>
+                    <a href="utc-practices.html">All Practices</a>
+                    <a href="utc-practices.html#strategy">Strategy</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="utc-about.html">About Us</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <a href="mailto:info@utcassociates.com">info@utcassociates.com</a>
+                    <a href="tel:212-344-4111">212-344-4111</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 UTC Associates, Inc. All rights reserved.</p>
+            <div class="footer-certifications">
+                <span>GSA Schedule 70</span>
+                <span>MBE Certified</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+        // Smooth anchor scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

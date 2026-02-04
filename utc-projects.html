@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects | UTC Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0D3B2E;
+            --forest-light: #145A44;
+            --mint: #10B981;
+            --mint-dark: #059669;
+            --white: #FFFFFF;
+            --cream: #FAF9F7;
+            --sand: #F3F1ED;
+            --stone: #E8E4DE;
+            --ink: #1A1A1A;
+            --charcoal: #404040;
+            --slate: #6B6B6B;
+            --silver: #9A9A9A;
+            --midnight: #111111;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ NAVBAR ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            background: rgba(13, 59, 46, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--stone);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .navbar .logo-img { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); height: 40px; }
+        .navbar.scrolled .logo-img { height: 32px; filter: brightness(0) saturate(100%); }
+        .nav-container { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .navbar.scrolled .nav-link { color: var(--charcoal); }
+        .navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active { color: var(--ink); background: var(--sand); }
+        .navbar.scrolled .btn-ghost { color: var(--charcoal); }
+        .logo { display: flex; align-items: center; }
+        .logo-img { height: 40px; width: auto; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85); padding: 0.5rem 0.875rem; border-radius: 8px; transition: all 0.2s ease; text-decoration: none; }
+        .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+        .nav-link.active { color: var(--white); }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.625rem 1.25rem; font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+        .btn-ghost { background: transparent; color: rgba(255,255,255,0.85); }
+        .btn-ghost:hover { color: var(--white); }
+        .btn-accent { background: var(--mint); color: var(--white); }
+        .btn-accent:hover { background: var(--mint-dark); }
+        .btn-lg { padding: 0.875rem 1.75rem; font-size: 0.9375rem; }
+        .mobile-menu-btn { display: none; width: 44px; height: 44px; background: none; border: none; cursor: pointer; z-index: 1002; }
+        .mobile-menu-btn span { display: block; width: 20px; height: 2px; background: var(--white); margin: 5px auto; transition: all 0.3s ease; }
+        .navbar.scrolled .mobile-menu-btn span { background: var(--ink); }
+        .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 1001; padding: 100px 2rem 2rem; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 0.25rem; }
+        .mobile-menu-links a { font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; color: var(--ink); padding: 0.75rem 0; border-bottom: 1px solid var(--stone); transition: color 0.2s; text-decoration: none; }
+        .mobile-menu-links a:hover { color: var(--mint); }
+        .mobile-menu-cta { margin-top: 2rem; }
+        .mobile-menu-cta .btn { width: 100%; justify-content: center; }
+
+        /* ============ HERO - DRAMATIC EDITORIAL ============ */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 0 0 0;
+            background: var(--midnight);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(15rem, 25vw, 35rem);
+            font-weight: 700;
+            color: rgba(255,255,255,0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .hero-content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 70vh;
+        }
+        
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 7rem 4rem 4rem 6rem;
+            position: relative;
+        }
+        
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-eyebrow-line {
+            width: 4rem;
+            height: 2px;
+            background: var(--mint);
+        }
+        
+        .hero-eyebrow-text {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mint);
+        }
+        
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 600;
+            line-height: 1.05;
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 em {
+            font-style: italic;
+            color: var(--mint);
+        }
+        
+        .hero-description {
+            font-size: 1.1875rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+            max-width: 420px;
+            font-weight: 400;
+        }
+        
+        .hero-right {
+            background: var(--forest);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 4rem 6rem 4rem 4rem;
+            position: relative;
+        }
+        
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 30% 70%, rgba(16,185,129,0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+        
+        .hero-stat {
+            border-left: 2px solid var(--mint);
+            padding-left: 1.5rem;
+        }
+        
+        .hero-stat-number {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 0.375rem;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 6rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .scroll-hint-line {
+            width: 4rem;
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scroll-hint-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--mint);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollLine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* ============ PROJECTS SECTION ============ */
+        .projects-section {
+            padding: 8rem 0;
+            background: var(--white);
+        }
+        
+        .projects-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5rem;
+        }
+        
+        .projects-title-group h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+        
+        .projects-title-group h2 span {
+            color: var(--mint);
+            font-weight: 500;
+        }
+        
+        .projects-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.625rem 1.25rem;
+            background: transparent;
+            border: 2px solid var(--stone);
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--forest);
+            color: var(--forest);
+            background: rgba(13, 59, 46, 0.04);
+        }
+        
+        .filter-btn.active {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+        }
+
+        /* ============ PROJECT ITEMS - EDITORIAL LAYOUT ============ */
+        .projects-list {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+        
+        .project-item {
+            display: grid;
+            grid-template-columns: 0.4fr 1fr;
+            gap: 0;
+            border-top: 2px solid var(--stone);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-item:last-child {
+            border-bottom: 2px solid var(--stone);
+        }
+        
+        .project-item.hidden {
+            display: none;
+        }
+        
+        .project-item::before {
+            content: '';
+            position: absolute;
+            left: -4rem;
+            right: -4rem;
+            top: -2px;
+            bottom: -2px;
+            background: var(--sand);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s;
+        }
+        
+        .project-item:hover::before {
+            opacity: 1;
+        }
+        
+        .project-meta {
+            padding: 3.5rem 3rem 3.5rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 2px solid var(--stone);
+        }
+        
+        .project-number {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-style: italic;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+        
+        .project-industry {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--forest);
+        }
+        
+        .project-industry::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--mint);
+            border-radius: 50%;
+        }
+        
+        .project-content {
+            padding: 3.5rem 0 3.5rem 3rem;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .project-main h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+        
+        .project-item:hover .project-main h3 {
+            color: var(--forest);
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .project-tag {
+            padding: 0.4rem 0.875rem;
+            background: var(--white);
+            border: 1.5px solid var(--stone);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+        
+        .project-item:hover .project-tag {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--white);
+        }
+        
+        .project-description {
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+        
+        .project-arrow {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--stone);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            background: var(--white);
+        }
+        
+        .project-arrow svg {
+            width: 24px;
+            height: 24px;
+            color: var(--charcoal);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-item:hover .project-arrow {
+            background: var(--mint);
+            border-color: var(--mint);
+            transform: scale(1.1);
+        }
+        
+        .project-item:hover .project-arrow svg {
+            color: var(--white);
+            transform: rotate(-45deg);
+        }
+
+        /* ============ MODAL - IMMERSIVE SLIDEOUT ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 55%;
+            max-width: 800px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 2001;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .modal.active {
+            transform: translateX(0);
+        }
+        
+        .modal-close {
+            position: fixed;
+            top: 2rem;
+            right: calc(55% + 2rem);
+            width: 56px;
+            height: 56px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+            z-index: 2002;
+        }
+        
+        .modal-overlay.active .modal-close {
+            opacity: 1;
+        }
+        
+        .modal-close:hover {
+            background: var(--white);
+            border-color: var(--white);
+            transform: rotate(90deg);
+        }
+        
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
+            transition: color 0.3s;
+            stroke-width: 2.5;
+        }
+        
+        .modal-close:hover svg {
+            color: var(--ink);
+        }
+        
+        .modal-header {
+            background: var(--midnight);
+            padding: 5rem 3rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(16,185,129,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--mint);
+        }
+        
+        .modal-number {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            font-family: var(--font-display);
+            font-size: 8rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.06);
+            line-height: 1;
+        }
+        
+        .modal-industry {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--mint);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .modal-service {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .modal-body {
+            padding: 3rem;
+            background: var(--white);
+        }
+        
+        .modal-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .modal-section:last-of-type {
+            margin-bottom: 0;
+        }
+        
+        .modal-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-label span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--forest);
+            white-space: nowrap;
+        }
+        
+        .modal-label::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: var(--sand);
+        }
+        
+        .modal-text {
+            font-size: 1.0625rem;
+            line-height: 1.85;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+        
+        .modal-timeline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--forest);
+            color: var(--white);
+            padding: 1rem 1.75rem;
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            margin-top: 2rem;
+        }
+        
+        .modal-timeline svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.8;
+        }
+
+        /* ============ CTA SECTION ============ */
+        .cta-section {
+            padding: 10rem 4rem;
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(16,185,129,0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .cta-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+        }
+        
+        .cta-content h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content h2 em {
+            font-style: italic;
+            color: var(--mint);
+        }
+        
+        .cta-content p {
+            font-size: 1.1875rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            max-width: 480px;
+            font-weight: 400;
+        }
+        
+        .cta-action {
+            text-align: right;
+        }
+        
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--mint);
+            color: var(--white);
+            padding: 1.375rem 2.75rem;
+            border-radius: 100px;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .cta-btn:hover {
+            background: var(--white);
+            color: var(--forest);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .cta-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+            stroke-width: 2.5;
+        }
+        
+        .cta-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--midnight);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 2fr;
+            gap: 4rem;
+        }
+        .footer-logo { margin-bottom: 1rem; }
+        .footer-logo-img { height: 36px; filter: brightness(0) invert(1); }
+        .footer-tagline {
+            font-size: 0.9375rem;
+            color: var(--silver);
+            margin-bottom: 1.5rem;
+            max-width: 280px;
+            line-height: 1.6;
+        }
+        .footer-cta {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--mint);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-cta:hover { color: var(--white); }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .footer-column h4 {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-column a {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--silver);
+            padding: 0.375rem 0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-column a:hover { color: var(--white); }
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--slate); }
+        .footer-certifications { display: flex; gap: 1.5rem; }
+        .footer-certifications span {
+            font-size: 0.75rem;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1200px) {
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-left { padding: 8rem 4rem 3rem; }
+            .hero-right { display: none; }
+            .scroll-hint { left: 4rem; }
+            .project-content { grid-template-columns: 1fr auto; }
+            .project-description { display: none; }
+            .modal { width: 70%; }
+            .modal-close { right: calc(70% + 1.5rem); }
+        }
+        
+        @media (max-width: 1024px) {
+            .projects-header { flex-direction: column; align-items: flex-start; gap: 2rem; }
+            .cta-container { grid-template-columns: 1fr; text-align: center; }
+            .cta-content p { margin: 0 auto 2rem; }
+            .cta-action { text-align: center; }
+            .footer-container { grid-template-columns: 1fr; }
+            .footer-links { margin-top: 2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu { display: block; }
+            .hero { min-height: 60vh; }
+            .hero-content { min-height: 60vh; }
+            .hero-left { padding: 7rem 2rem 2.5rem; }
+            .scroll-hint { display: none; }
+            .projects-section { padding: 5rem 0; }
+            .projects-header, .projects-list { padding: 0 2rem; }
+            .project-item { grid-template-columns: 1fr; }
+            .project-meta { 
+                padding: 2rem 0 1rem; 
+                border-right: none; 
+                border-bottom: 2px solid var(--stone);
+                flex-direction: row;
+                align-items: center;
+            }
+            .project-content { 
+                padding: 1.5rem 0 2rem; 
+                grid-template-columns: 1fr auto;
+                gap: 1.5rem;
+            }
+            .project-arrow { width: 48px; height: 48px; }
+            .project-arrow svg { width: 18px; height: 18px; }
+            .modal { width: 100%; }
+            .modal-close { 
+                position: fixed; 
+                top: 1rem; 
+                right: 1rem; 
+                background: rgba(0,0,0,0.5);
+                border-color: rgba(255,255,255,0.4);
+                z-index: 2002;
+                width: 48px;
+                height: 48px;
+            }
+            .modal-header { padding: 4rem 2rem 2rem; }
+            .modal-body { padding: 2rem; }
+            .modal-number { display: none; }
+            .cta-section { padding: 5rem 2rem; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.25rem; }
+            .projects-title-group h2 { font-size: 1.75rem; }
+            .project-main h3 { font-size: 1.5rem; }
+            .footer-links { grid-template-columns: 1fr; text-align: center; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        /* Modal Scrollbar */
+        .modal::-webkit-scrollbar { width: 6px; }
+        .modal::-webkit-scrollbar-track { background: var(--sand); }
+        .modal::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
+
+        /* ============ SCROLL ANIMATIONS ============ */
+        
+        /* Base states for animated elements */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-fade-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-fade-in.in-view {
+            opacity: 1;
+        }
+        
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-slide-left.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-slide-right.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-scale.in-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Stagger delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        
+        /* Project items - staggered reveal */
+        .project-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        background 0.4s ease;
+        }
+        
+        .project-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Line draw animation for borders */
+        .animate-line {
+            position: relative;
+        }
+        
+        .animate-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .animate-line.in-view::after {
+            width: 100%;
+        }
+        
+        /* Hero specific animations */
+        .hero-eyebrow {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+        
+        .hero h1 {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+        }
+        
+        .hero-description {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+        }
+        
+        .hero-stat {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        
+        .hero-stat:nth-child(1) { animation: heroSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+        .hero-stat:nth-child(2) { animation: heroSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards; }
+        .hero-stat:nth-child(3) { animation: heroSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+        
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+        }
+        
+        @keyframes heroSlideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Number counter animation styling */
+        .hero-stat-number {
+            display: inline-block;
+        }
+        
+        /* Parallax effect for background text */
+        .hero-bg-text {
+            transition: transform 0.1s linear;
+        }
+        
+        /* Filter buttons animation */
+        .filter-btn {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        
+        .filter-btn.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* CTA section animations */
+        .cta-content h2,
+        .cta-content p,
+        .cta-btn {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .cta-content h2.in-view { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        
+        .cta-content p.in-view { 
+            opacity: 1; 
+            transform: translateY(0);
+            transition-delay: 0.15s;
+        }
+        
+        .cta-btn.in-view { 
+            opacity: 1; 
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+        
+        /* Smooth reveal for project tags */
+        .project-tag {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .project-item.in-view .project-tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-item.in-view .project-tag:nth-child(1) { transition-delay: 0.2s; }
+        .project-item.in-view .project-tag:nth-child(2) { transition-delay: 0.28s; }
+        .project-item.in-view .project-tag:nth-child(3) { transition-delay: 0.36s; }
+        
+        /* Project arrow pulse on reveal */
+        .project-arrow {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s,
+                        background 0.4s ease, border-color 0.4s ease;
+        }
+        
+        .project-item.in-view .project-arrow {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logos/utc-logo.png" alt="UTC Associates" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="utc-services.html" class="nav-link">Services</a>
+                <a href="utc-practices.html" class="nav-link">Practices</a>
+                <a href="utc-about.html" class="nav-link">About</a>
+                <a href="utc-projects.html" class="nav-link active">Projects</a>
+                <a href="utc-news.html" class="nav-link">News</a>
+            </div>
+            <div class="nav-actions">
+                <a href="tel:212-344-4111" class="btn btn-ghost">212-344-4111</a>
+                <a href="index.html#contact" class="btn btn-accent">Let's Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html">Home</a>
+            <a href="utc-services.html">Services</a>
+            <a href="utc-practices.html">Practices</a>
+            <a href="utc-about.html">About</a>
+            <a href="utc-projects.html">Projects</a>
+            <a href="utc-news.html">News</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="index.html#contact" class="btn btn-accent btn-lg">Let's Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-text">PROJECTS</div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-eyebrow">
+                    <span class="hero-eyebrow-line"></span>
+                    <span class="hero-eyebrow-text">Case Studies</span>
+                </div>
+                <h1>Work that <em>transforms</em> industries</h1>
+                <p class="hero-description">From government modernization to enterprise infrastructure—real results for organizations that demand excellence.</p>
+                <div class="scroll-hint">
+                    <span class="scroll-hint-line"></span>
+                    <span>Scroll to explore</span>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">20+</div>
+                        <div class="hero-stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">500+</div>
+                        <div class="hero-stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">98%</div>
+                        <div class="hero-stat-label">Client Retention</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="projects-header">
+            <div class="projects-title-group animate-fade-up">
+                <h2>Featured Work <span>/ 05</span></h2>
+            </div>
+            <div class="projects-filter" id="filterContainer">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="government">Government</button>
+                <button class="filter-btn" data-filter="utilities">Utilities</button>
+                <button class="filter-btn" data-filter="telecom">Telecom</button>
+                <button class="filter-btn" data-filter="logistics">Logistics</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+            </div>
+        </div>
+
+        <div class="projects-list">
+            <!-- Project 1 -->
+            <article class="project-item" data-category="government" data-project="orange-county">
+                <div class="project-meta">
+                    <span class="project-number">01</span>
+                    <span class="project-industry">Government</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-main">
+                        <h3>Orange County, New York</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Managed IT</span>
+                            <span class="project-tag">Cyber Security</span>
+                            <span class="project-tag">Infrastructure</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Consolidated multiple departments into a single government center with 1,000+ workstations and enterprise security monitoring.</p>
+                    <div class="project-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-item" data-category="utilities" data-project="con-edison">
+                <div class="project-meta">
+                    <span class="project-number">02</span>
+                    <span class="project-industry">Energy & Utilities</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-main">
+                        <h3>Con Edison</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Systems Integration</span>
+                            <span class="project-tag">AMI</span>
+                            <span class="project-tag">Enterprise</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Led deployment of Advanced Metering Infrastructure enabling real-time utilization data across America's largest utility.</p>
+                    <div class="project-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-item" data-category="telecom" data-project="mettel">
+                <div class="project-meta">
+                    <span class="project-number">03</span>
+                    <span class="project-industry">Telecommunications</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-main">
+                        <h3>MetTel</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Network Infrastructure</span>
+                            <span class="project-tag">VoIP</span>
+                            <span class="project-tag">Managed Services</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Built MPLS-based IP network and hosted VoIP offering with ongoing managed services partnership.</p>
+                    <div class="project-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="project-item" data-category="logistics" data-project="peco-pallet">
+                <div class="project-meta">
+                    <span class="project-number">04</span>
+                    <span class="project-industry">Logistics</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-main">
+                        <h3>PECO Pallet, Inc.</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">GRC</span>
+                            <span class="project-tag">Risk Management</span>
+                            <span class="project-tag">Compliance</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Enterprise-wide operational and IT risk management across all company locations nationwide.</p>
+                    <div class="project-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 5 -->
+            <article class="project-item" data-category="technology" data-project="metricstream">
+                <div class="project-meta">
+                    <span class="project-number">05</span>
+                    <span class="project-industry">Technology</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-main">
+                        <h3>MetricStream</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">GRC Implementation</span>
+                            <span class="project-tag">Enterprise Software</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Expert implementation services for MetricStream GRC solutions across multiple enterprise clients.</p>
+                    <div class="project-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2>Ready to become our <em>next success story?</em></h2>
+                <p>Let's discuss how UTC Associates can help transform your organization's technology infrastructure.</p>
+            </div>
+            <div class="cta-action">
+                <a href="index.html#contact" class="cta-btn">
+                    Start a Conversation
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="logos/utc-logo.png" alt="UTC Associates" class="footer-logo-img">
+                </div>
+                <p class="footer-tagline">Technology Solutions That Increase Your Value. Strategic consulting since 2001.</p>
+                <a href="mailto:info@utcassociates.com" class="footer-cta">Contact Us →</a>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <a href="utc-services.html">Overview</a>
+                    <a href="utc-services.html#cloud">Cloud Migration</a>
+                    <a href="utc-services.html#security">Cyber Security</a>
+                    <a href="utc-services.html#grc">GRC Solutions</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Practices</h4>
+                    <a href="utc-practices.html">All Practices</a>
+                    <a href="utc-practices.html#strategy">Strategy</a>
+                    <a href="utc-practices.html#devops">DevOps</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="utc-about.html">About</a>
+                    <a href="utc-projects.html">Projects</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <a href="mailto:info@utcassociates.com">info@utcassociates.com</a>
+                    <a href="tel:212-344-4111">212-344-4111</a>
+                    <a href="#">40 Wall Street, NYC</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 UTC Associates, Inc. All rights reserved.</p>
+            <div class="footer-certifications">
+                <span>GSA Schedule 70</span>
+                <span>MBE Certified</span>
+                <span>NYC & NYS Certified</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <button class="modal-close" id="modalClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <span class="modal-number" id="modalNumber">01</span>
+            <span class="modal-industry" id="modalIndustry">Government</span>
+            <h2 class="modal-title" id="modalTitle">Orange County, NY</h2>
+            <p class="modal-service" id="modalService">Managed IT • Cyber Security</p>
+        </div>
+        <div class="modal-body">
+            <div class="modal-section">
+                <div class="modal-label"><span>The Challenge</span></div>
+                <p class="modal-text" id="modalChallenge"></p>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label"><span>Our Solution</span></div>
+                <p class="modal-text" id="modalSolution"></p>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label"><span>Results & Impact</span></div>
+                <p class="modal-text" id="modalResults"></p>
+            </div>
+            <div class="modal-timeline" id="modalTimeline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                <span id="modalYear">2017 — Present</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Project Data
+        const projects = {
+            'orange-county': {
+                number: '01',
+                title: 'Orange County, New York',
+                industry: 'Government',
+                service: 'Managed IT • Cyber Security • Infrastructure',
+                challenge: 'Orange County needed to consolidate multiple government departments into a single center, requiring the procurement and deployment of over 1,000 new workstations while ensuring seamless access to legacy applications and implementing robust cybersecurity measures.',
+                solution: 'UTC delivered comprehensive end-to-end support: leveraging LANDESK to develop standardized imaging, deploying all workstations, migrating legacy applications, implementing cloud-based cyber security monitoring, and providing operational support throughout the transition and beyond.',
+                results: 'Successfully deployed 1,000+ workstations, completed full department consolidation, established ongoing desktop support since 2017, and implemented continuous network security monitoring protecting critical county infrastructure.',
+                year: '2017 — Present'
+            },
+            'con-edison': {
+                number: '02',
+                title: 'Con Edison',
+                industry: 'Energy & Utilities',
+                service: 'Systems Integration • Enterprise Solutions • AMI',
+                challenge: 'Con Edison sought to modernize its metering infrastructure to improve operations and provide customers with real-time visibility into their energy utilization—a transformation requiring seamless integration with existing enterprise systems.',
+                solution: 'UTC assembled a dedicated team of business analysts, systems architects, developers, and project managers to support the AMI migration. This included implementing Meter Asset Management System (MAMS), Meter Data Management System (MDMS), wireless communications infrastructure, and integration with the existing Customer Information System.',
+                results: 'Successful deployment of remotely readable smart meters across the service territory, automated meter reading capabilities, significantly improved customer experience through real-time data access, and seamless integration with existing enterprise systems.',
+                year: '2015 — Present'
+            },
+            'mettel': {
+                number: '03',
+                title: 'MetTel',
+                industry: 'Telecommunications',
+                service: 'Network Infrastructure • Managed Services • VoIP',
+                challenge: 'MetTel required engineering and deployment of a robust IP/Optical backbone and access technologies to support their nationwide telecommunications services for small and medium businesses across the tri-state area.',
+                solution: 'UTC built an MPLS-based IP network from the ground up, created a new hosted VoIP service offering, and deployed Cisco, Nortel, and Lucent-Alcatel equipment. Following successful infrastructure deployment, we expanded to provide comprehensive IT managed services including software application development, network operations, and database support.',
+                results: 'Delivered a fully operational MPLS network, established a new hosted VoIP revenue stream for MetTel, built an ongoing managed services partnership, and maintain dedicated on-site resources providing continuous support.',
+                year: 'Multi-year — Ongoing'
+            },
+            'peco-pallet': {
+                number: '04',
+                title: 'PECO Pallet, Inc.',
+                industry: 'Logistics & Supply Chain',
+                service: 'GRC • Risk Management • Compliance',
+                challenge: 'PECO Pallet needed to identify, assess, and systematically manage operational and IT risks across their nationwide network of facilities—requiring a unified approach to enterprise risk visibility.',
+                solution: 'UTC implemented a comprehensive risk management program designed to identify, assess, quantify, monitor, and manage operational and IT risks throughout all PECO Pallet locations, providing leadership with real-time visibility into their risk landscape.',
+                results: 'Achieved enterprise-wide risk visibility, established ongoing risk monitoring protocols, and significantly strengthened security posture across all company locations.',
+                year: 'Ongoing'
+            },
+            'metricstream': {
+                number: '05',
+                title: 'MetricStream',
+                industry: 'Technology',
+                service: 'GRC Implementation • Enterprise Software',
+                challenge: 'MetricStream required expert implementation and support services to ensure successful deployment of their GRC (Governance, Risk, and Compliance) solutions for enterprise clients.',
+                solution: 'UTC Associates provided specialized implementation services for MetricStream GRC solutions, working across multiple concurrent projects to deliver GRC implementation and ongoing support.',
+                results: 'Successfully completed multiple GRC implementations, enabling MetricStream clients to achieve their compliance and risk management objectives.',
+                year: 'Completed 2017'
+            }
+        };
+
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modalClose');
+        const filterCount = document.querySelector('.projects-title-group h2 span');
+        const heroBgText = document.querySelector('.hero-bg-text');
+
+        // ============ SCROLL ANIMATIONS ============
+        
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.1
+        };
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fade-up, .animate-fade-in, .animate-slide-left, .animate-slide-right, .animate-scale, .animate-line').forEach(el => {
+            revealObserver.observe(el);
+        });
+        
+        // Observe project items with staggered delay
+        projectItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+            revealObserver.observe(item);
+        });
+        
+        // Observe filter buttons with stagger
+        filterBtns.forEach((btn, index) => {
+            btn.style.transitionDelay = `${0.4 + index * 0.05}s`;
+            revealObserver.observe(btn);
+        });
+        
+        // Observe CTA elements
+        const ctaH2 = document.querySelector('.cta-content h2');
+        const ctaP = document.querySelector('.cta-content p');
+        const ctaBtn = document.querySelector('.cta-btn');
+        
+        if (ctaH2) revealObserver.observe(ctaH2);
+        if (ctaP) revealObserver.observe(ctaP);
+        if (ctaBtn) revealObserver.observe(ctaBtn);
+        
+        // ============ PARALLAX EFFECT ============
+        
+        let ticking = false;
+        
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            
+            // Parallax for hero background text
+            if (heroBgText && scrolled < heroHeight) {
+                const parallaxSpeed = 0.3;
+                heroBgText.style.transform = `translate(-50%, calc(-50% + ${scrolled * parallaxSpeed}px))`;
+            }
+            
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+        
+        // ============ NUMBER COUNTER ANIMATION ============
+        
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.dataset.suffix || '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.dataset.suffix || '');
+                }
+            }, 16);
+        }
+        
+        // Observe stat numbers for counter animation
+        const statNumbers = document.querySelectorAll('.hero-stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const text = entry.target.textContent;
+                    const numMatch = text.match(/\d+/);
+                    if (numMatch) {
+                        const num = parseInt(numMatch[0]);
+                        const suffix = text.replace(numMatch[0], '');
+                        entry.target.dataset.suffix = suffix;
+                        entry.target.textContent = '0' + suffix;
+                        setTimeout(() => animateCounter(entry.target, num, 1500), 500);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statNumbers.forEach(stat => statsObserver.observe(stat));
+
+        // ============ SMOOTH SCROLL PROGRESS ============
+        
+        // Optional: Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--mint), var(--forest));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        `;
+        document.body.appendChild(progressBar);
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+
+        // ============ NAVBAR SCROLL ============
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ============ MOBILE MENU ============
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ============ FILTER ============
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                let count = 0;
+                
+                projectItems.forEach((item, index) => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                        item.style.transitionDelay = `${index * 0.05}s`;
+                        count++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                filterCount.textContent = `/ 0${count}`;
+            });
+        });
+
+        // ============ MODAL ============
+        projectItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const data = projects[item.dataset.project];
+                if (data) {
+                    document.getElementById('modalNumber').textContent = data.number;
+                    document.getElementById('modalIndustry').textContent = data.industry;
+                    document.getElementById('modalTitle').textContent = data.title;
+                    document.getElementById('modalService').textContent = data.service;
+                    document.getElementById('modalChallenge').textContent = data.challenge;
+                    document.getElementById('modalSolution').textContent = data.solution;
+                    document.getElementById('modalResults').textContent = data.results;
+                    document.getElementById('modalYear').textContent = data.year;
+                    modalOverlay.classList.add('active');
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
